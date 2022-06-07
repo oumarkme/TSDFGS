@@ -1,26 +1,26 @@
 {
-    "id": "75F3ADEE",
-    "path": "~/Dropbox/Projects/TSDFGS/README.md",
-    "project_path": "README.md",
-    "type": "markdown",
+    "id": "6506A772",
+    "path": "~/Desktop/TSDFGS/man/optTrain.Rd",
+    "project_path": null,
+    "type": "r_doc",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1654253545960.0,
+    "created": 1654588098871.0,
     "source_on_save": false,
-    "relative_order": 4,
+    "relative_order": 6,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "9,0",
-        "scrollLine": "0"
+        "cursorPosition": "34,0",
+        "scrollLine": "23"
     },
     "folds": "",
-    "lastKnownWriteTime": 1654589836,
+    "lastKnownWriteTime": 1551856119,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1654589836,
+    "last_content_update": 1551856119,
     "read_only": false,
     "read_only_alternatives": []
 }

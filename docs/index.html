@@ -44,7 +44,14 @@
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/oumarkme/TSDFGS/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -61,7 +68,16 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of TSDFGS is to …</p>
+<p>In this package, we provide two useful tools to help determine a reasonable training set for genomic selection or prediction. In order to have a better prediction to the genomic estimated breeding values (GEBV), the training set should be optimized as highly genomic correlated with the test set as possible. Several criteria published previously, including:</p>
+<ul>
+<li>Prediction error variance (PEV; <a href="https://doi.org/10.1186/s12711-015-0116-6" class="external-link">Akdemir et al., 2015</a>)</li>
+<li>Generalized coefficient of determination (CD; <a href="https://doi.org/10.1186/1297-9686-28-4-359" class="external-link">Laloë et al., 1993</a>)</li>
+</ul>
+<p>In our research, we provide an alternative criteria, <strong>r-score</strong>, which is derived from Pearson’s correlation between GEBVs and phenotypic values of a test set. With the criteria, we could determine both reasonable training set size and an optimal training set for building prediction model. Both functions are provided in our package.</p>
+<p>For more information of the method, please check our published article:</p>
+<ul>
+<li>Training set determination for genomic selection (<a href="https://doi.org/10.1007/s00122-019-03387-0" class="external-link">Ou et al., 2019</a>)</li>
+</ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -74,26 +90,8 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"TSDFGS"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="main-functions">Main functions<a class="anchor" aria-label="anchor" href="#main-functions"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">TSDFGS</span><span class="op">)</span></code></pre></div>
-<div class="section level3">
-<h3 id="training-set-size-determination">Training set size determination<a class="anchor" aria-label="anchor" href="#training-set-size-determination"></a>
-</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">optTrain</span><span class="op">(</span><span class="va">geno</span><span class="op">)</span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="determine-an-optimal-training-set">Determine an optimal training set<a class="anchor" aria-label="anchor" href="#determine-an-optimal-training-set"></a>
-</h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"></code></pre></div>
-<p>Three optimze criteria:</p>
-<ul>
-<li><a href="./reference/r_score.html">r-score</a></li>
-</ul>
-</div>
 </div>
 </div>
   </div>
@@ -103,6 +101,8 @@
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=TSDFGS" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/oumarkme/TSDFGS/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/oumarkme/TSDFGS/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -135,6 +135,8 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=TSDFGS" class="external-link"><img src="https://www.r-pkg.org/badges/version/TSDFGS" alt="CRAN status"></a></li>
+<li><a href="https://github.com/oumarkme/TSDFGS/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/oumarkme/TSDFGS/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
 </ul>
 </div>
 

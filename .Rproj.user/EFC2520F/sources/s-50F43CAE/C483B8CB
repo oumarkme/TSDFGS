@@ -1,0 +1,26 @@
+{
+    "id": "C483B8CB",
+    "path": "~/Dropbox/Projects/TSDFGS/R/optTrain.R",
+    "project_path": "R/optTrain.R",
+    "type": "r_source",
+    "hash": "3768906813",
+    "contents": "",
+    "dirty": false,
+    "created": 1654587951213.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "24,90",
+        "scrollLine": "17"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1654588494,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1654588494372,
+    "read_only": false,
+    "read_only_alternatives": []
+}

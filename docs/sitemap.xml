@@ -13,7 +13,19 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/TSDFGS-package.html</loc>
+  </url>
+  <url>
+    <loc>/reference/cd_score.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/optTrain.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pev_score.html</loc>
   </url>
   <url>
     <loc>/reference/r_score.html</loc>
