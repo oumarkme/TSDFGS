@@ -8,6 +8,14 @@
 \description{
 This package provide functions for determining optimal training set and its size for genomic selection or genomic prediction. The optimality criterion, r-score, is derived from Pearson's correlation between the genomic estimated breeding value and phenotypic values of the test set \doi{10.1007/s00122-019-03387-0}.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/oumarkme/TSDFGS}
+  \item Report bugs at \url{https://github.com/oumarkme/TSDFGS/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Jen-Hsiang Ou \email{jen-hsiang.ou@imbim.uu.se} (\href{https://orcid.org/0000-0001-9305-2931}{ORCID})
 

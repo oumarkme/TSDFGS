@@ -34,4 +34,14 @@ You may also install the stable version from CRAN, which the most resent functio
 install.packages("TSDFGS")
 ```
 
+- All functions were developed under r version 4.2.0 and tested in both version 3.6.3 and 4.1.1. We recommend you to use run use package with R version > 3.6.3.
+- Rcpp and RcppEigen were used in the package. The core C++ scripts were published in github for those who want a better performance.
+
+
 ## Main functions
+
+- `r_score`: Function for calculating r-score ([more](https://www.oumark.me/TSDFGS/reference/r_score.html)).
+- `pev_score`: Function for calculating PEV score ([more](https://www.oumark.me/TSDFGS/reference/pev_score.html)).
+- `cd_score`: Function for Calculating CD score ([more](https://www.oumark.me/TSDFGS/reference/cd_score.html)).
+- `optTrain`: Function for determining optimal training set ([more](https://www.oumark.me/TSDFGS/reference/optTrain.html)).
+- `SSDFGS`: Function for determining reasonable training set size ([more](https://www.oumark.me/TSDFGS/reference/SSDFGS.html)).

@@ -8,7 +8,6 @@
         "-I/Library/Frameworks/R.framework/Versions/4.2/Resources/library/Rcpp/include",
         "-I/Library/Frameworks/R.framework/Versions/4.2/Resources/library/RcppEigen/include",
         "-I/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include",
-        "-I/usr/local/include",
         "-I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1",
         "-I/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include",
         "-I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include",
@@ -16,7 +15,7 @@
     ],
     "pch": "RcppEigen",
     "is_cpp": true,
-    "hash": "165425361716542497581654249758",
+    "hash": "165459106916542497581654249758",
     "compiler": "7742639435792516929",
     "rversion": "4.2.0"
 }

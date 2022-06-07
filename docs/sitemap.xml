@@ -13,6 +13,15 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/FGCM.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RErs.det.html</loc>
+  </url>
+  <url>
+    <loc>/reference/SSDFGS.html</loc>
+  </url>
+  <url>
     <loc>/reference/TSDFGS-package.html</loc>
   </url>
   <url>
@@ -20,6 +29,9 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/nt2r.html</loc>
   </url>
   <url>
     <loc>/reference/optTrain.html</loc>

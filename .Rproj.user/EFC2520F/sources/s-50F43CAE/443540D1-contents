@@ -21,7 +21,11 @@ Description: This package provide functions for determining optimal training set
 License: GPL (>= 3)
 Encoding: UTF-8
 Imports: 
+    dplyr,
+    ggplot2,
+    latex2exp,
     lifecycle,
+    parallel,
     Rcpp (>= 1.0.8.3),
     RcppEigen
 LinkingTo: Rcpp, RcppEigen
