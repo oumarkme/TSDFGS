@@ -68,29 +68,29 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>In this package, we provide two useful tools to help determine a reasonable training set for genomic selection or prediction. In order to have a better prediction to the genomic estimated breeding values (GEBV), the training set should be optimized as highly genomic correlated with the test set as possible. Several criteria published previously, including:</p>
+<p>In this package, we provide two useful tools for determine a reasonable training set for genomic selection or prediction. In order to have a better prediction to the genomic This package provides two useful tools for determining a proper training set for genomic selection or prediction. In order to have a better prediction of the genomic estimated breeding values (GEBV), the training set should be optimized as highly genomic correlated with the test set as possible. Several criteria have been published previously, including:</p>
 <ul>
 <li>Prediction error variance (PEV; <a href="https://doi.org/10.1186/s12711-015-0116-6" class="external-link">Akdemir et al., 2015</a>)</li>
 <li>Generalized coefficient of determination (CD; <a href="https://doi.org/10.1186/1297-9686-28-4-359" class="external-link">Laloë et al., 1993</a>)</li>
 </ul>
-<p>In our research, we provide an alternative criteria, <strong>r-score</strong>, which is derived from Pearson’s correlation between GEBVs and phenotypic values of a test set. With the criteria, we could determine both reasonable training set size and an optimal training set for building prediction model. Both functions are provided in our package.</p>
-<p>For more information of the method, please check our published article:</p>
+<p>Our research provides an alternative criterion, <strong>r-score</strong>, which is derived from Pearson’s correlation between GEBVs and phenotypic values of a test set. We could determine both a reasonable training set size and an optimal training set for building a prediction model with the criteria. Both functions are provided in our package.</p>
+<p>For more information on the method, please check our published article:</p>
 <ul>
 <li>Training set determination for genomic selection (<a href="https://doi.org/10.1007/s00122-019-03387-0" class="external-link">Ou et al., 2019</a>)</li>
 </ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>The development version of TSDFGS can be installed from github (recommend):</p>
+<p>The development version of TSDFGS can be installed from GitHub (recommend):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># library(devtools)</span>
 <span class="fu">install_github</span><span class="op">(</span><span class="st">"oumark/TSDFGS"</span><span class="op">)</span></code></pre></div>
-<p>You may also install the stable version from CRAN, which the most resent function may not included.</p>
+<p>You may also install the stable version from CRAN, which the most recent function may not include.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"TSDFGS"</span><span class="op">)</span></code></pre></div>
 <ul>
-<li>All functions were developed under r version 4.2.0 and tested in both version 3.6.3 and 4.1.1. We recommend you to use run use package with R version &gt; 3.6.3.</li>
-<li>Rcpp and RcppEigen were used in the package. The core C++ scripts were published in github for those who want a better performance.</li>
+<li>All functions were developed under r version 4.2.0 and tested in both version 3.6.3 and 4.1.1. However, we recommend you to use this package with R version &gt; 3.6.3.</li>
+<li>Rcpp and RcppEigen were used in the package. In addition, the core C++ scripts were published on GitHub for those who want a better performance.</li>
 </ul>
 </div>
 <div class="section level2">
