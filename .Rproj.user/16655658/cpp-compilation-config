@@ -8,6 +8,7 @@
         "-fstack-protector-strong",
         "-D_FORTIFY_SOURCE=2",
         "-I/home/mark/R/x86_64-pc-linux-gnu-library/4.2/Rcpp/include",
+        "-I/home/mark/R/x86_64-pc-linux-gnu-library/4.2/RcppEigen/include",
         "-I/usr/lib/llvm-10/lib/clang/10.0.0/include",
         "-I/usr/include/c++/9",
         "-I/usr/include/x86_64-linux-gnu/c++/9",
@@ -19,7 +20,7 @@
     ],
     "pch": "RcppEigen",
     "is_cpp": true,
-    "hash": "165425361716542497581654249758",
+    "hash": "165459106916542497581654249758",
     "compiler": "1465303102426788192",
     "rversion": "4.2.0"
 }

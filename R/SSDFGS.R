@@ -81,10 +81,12 @@ FGCM = function(geno, nt = NULL, n_iter = NULL, multi.threads = TRUE){
 
 
 ##### SSDFGS #####
-# Fit growth curve model
-#' @name SSDFGS
-#' @title Sample size determination for genomic prediction
-#' @description Generate an operating curve for determining sample size.
+#' Sample size determination for genomic selection
+#' 
+#' This function is designed to generate an operating curve for sample size determination
+#' 
+#' @author Jen-Hsiang Ou & Po-Ya Wu
+#' 
 #' @import parallel
 #' @import dplyr
 #' @import ggplot2

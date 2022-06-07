@@ -1,5 +1,20 @@
 [
     {
+        "file": "/home/mark/nas/Projects/TSDFGS/src/cdscore.cpp",
+        "file_last_write": 1654587489.0,
+        "definitions": [
+            {
+                "usr": "c:@F@cd_score#I#I#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "cd_score(Eigen::MatrixXd, Eigen::MatrixXd)",
+                "file": "/home/mark/nas/Projects/TSDFGS/src/cdscore.cpp",
+                "line": 29,
+                "column": 7
+            }
+        ]
+    },
+    {
         "file": "/home/mark/nas/Projects/TSDFGS/src/pevscore.cpp",
         "file_last_write": 1654260390.0,
         "definitions": [

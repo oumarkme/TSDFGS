@@ -2,7 +2,7 @@
 % Please edit documentation in R/SSDFGS.R
 \name{SSDFGS}
 \alias{SSDFGS}
-\title{Sample size determination for genomic prediction}
+\title{Sample size determination for genomic selection}
 \usage{
 SSDFGS(geno, nt = NULL, n_iter = NULL, multi.threads = TRUE)
 }
@@ -19,5 +19,8 @@ SSDFGS(geno, nt = NULL, n_iter = NULL, multi.threads = TRUE)
 An operating curve and its information.
 }
 \description{
-Generate an operating curve for determining sample size.
+This function is designed to generate an operating curve for sample size determination
+}
+\author{
+Jen-Hsiang Ou & Po-Ya Wu
 }

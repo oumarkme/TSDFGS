@@ -25,7 +25,7 @@ The development version of TSDFGS can be installed from GitHub (recommend):
 
 ``` r
 # library(devtools)
-install_github("oumark/TSDFGS")
+install_github("oumarkme/TSDFGS", dependencies = TRUE, force = TRUE)
 ```
 
 You may also install the stable version from CRAN, which the most recent function may not include.
