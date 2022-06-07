@@ -12,7 +12,6 @@
 #' @return A floating-point number, CD score.
 #' 
 #' @import Rcpp
-#' @import RcppEigen
 #' 
 #' @export
 #' 
@@ -36,7 +35,6 @@ cd_score <- function(X, X0) {
 #' @author Jen-Hsiang Ou
 #' 
 #' @import Rcpp
-#' @import RcppEigen
 #' @export
 #' @examples
 #' data(geno)
@@ -57,7 +55,6 @@ pev_score <- function(X, X0) {
 #' @return A floating-point number, r-score.
 #' 
 #' @import Rcpp
-#' @import RcppEigen
 #' 
 #' @export
 #' @examples

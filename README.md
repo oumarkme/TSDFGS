@@ -53,3 +53,25 @@ An example data provided for testing this package. The rice genome data was publ
 load(url("https://github.com/oumarkme/TSDFGS/raw/main/data/rice.RData"))
 ```
 
+## Authors
+
+- Jen-Hsiang Ou
+    - Author, maintainer
+    - E-mail: jen-hsiang.ou@imbim.uu.se
+    - Department of Medical Biochemistry and Microbiology, Uppsala University, Uppsala, Sweden
+- Po-Ya Wu
+    - Author
+    - E-mail: Po-Ya.Wu@hhu.de
+    - Institute for Quantitative Genetics and Genomics of Plants, Heinrich Heine University, Düsseldorf, Germany
+- Chen-Tuo Liao
+    - Author, thesis advisor
+    - E-mail: ctliao@ntu.edu.tw
+    - Department of Agronomy, National Taiwan University, Taipei, Taiwan
+
+    
+## Citing this package
+
+If you make use of TSDFGS package in your research, we would appreciate a citation of following papers:
+
+- Ou, J.-H., and Liao, C.-T. Training set determination for genomic selection. Theor Appl Genet 132, 2781–2792 (2019). [https://doi.org/10.1007/s00122-019-03387-0](https://doi.org/10.1007/s00122-019-03387-0)
+- Wu, P.-Y., Ou, J.-H., and Liao, C.-T. Sample size determination for training set optimization in genomic prediction. Under review (2022).

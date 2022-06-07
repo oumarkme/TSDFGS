@@ -23,7 +23,6 @@ using Eigen::VectorXd;
 //' @author Jen-Hsiang Ou
 //' 
 //' @import Rcpp
-//' @import RcppEigen
 //' @export
 //' @examples
 //' data(geno)

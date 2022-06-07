@@ -5,7 +5,7 @@
 #' @format A character vector.
 #' 
 #' @source \url{http://www.ricediversity.org/data/} 
-#' @example 
+#' @examples 
 #' data(subpop)
 "subpop"
 

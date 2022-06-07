@@ -22,7 +22,6 @@ using Eigen::VectorXd;
 //' @return A floating-point number, r-score.
 //' 
 //' @import Rcpp
-//' @import RcppEigen
 //' 
 //' @export
 //' @examples

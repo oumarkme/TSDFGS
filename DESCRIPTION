@@ -1,8 +1,8 @@
 Package: TSDFGS
 Type: Package
-Title: Training set determination for genomic selection
+Title: Training Set Determination for Genomic Selection
 Version: 2.0
-Date: 2022-06-03
+Date: 2022-06-07
 Authors@R: c(
         person("Jen-Hsiang", "Ou", 
             email = "jen-hsiang.ou@imbim.uu.se", 
@@ -16,8 +16,7 @@ Authors@R: c(
             email = "ctliao@ntu.edu.tw", 
             role = c("aut", "ths"), 
             comment = c(ORCID = "0000-0001-9777-3701")))
-Description: This package provide functions for determining optimal training set and its size for genomic selection or genomic prediction. The optimality criterion, r-score, 
-    is derived from Pearson's correlation between the genomic estimated breeding value and phenotypic values of the test set <doi:10.1007/s00122-019-03387-0>.
+Description: We propose an optimality criterion to determine the required training set, r-score, which is derived directly from Pearson's correlation between the genomic estimated breeding values and phenotypic values of the test set <doi:10.1007/s00122-019-03387-0>. This package provides two main functions to determine a good training set and its size.
 License: GPL (>= 3)
 Encoding: UTF-8
 Imports: 
@@ -26,8 +25,7 @@ Imports:
     latex2exp,
     lifecycle,
     parallel,
-    Rcpp (>= 1.0.8.3),
-    RcppEigen
+    Rcpp (>= 1.0.8.3)
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)

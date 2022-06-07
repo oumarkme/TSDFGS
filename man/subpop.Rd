@@ -16,4 +16,7 @@ subpop
 \description{
 Sub-population information of samples. This data was published by Zhao et al. (2011) \url{doi:10.1038/ncomms1467}
 }
+\examples{
+data(subpop)
+}
 \keyword{datasets}
