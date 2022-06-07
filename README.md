@@ -47,4 +47,9 @@ install.packages("TSDFGS")
 - `SSDFGS`: Function for determining reasonable training set size ([more](https://www.oumark.me/TSDFGS/reference/SSDFGS.html)).
 
 ## Example dataset
-An example data provided for testing this package. The rice genome data was published by [Zhao et al. (2011)](https://doi.org/10.1038/ncomms1467) in their research. Raw dataset is available at the [Rice Diversity website](http://www.ricediversity.org/data/).
+An example data provided for testing this package. The rice genome data was published by [Zhao et al. (2011)](https://doi.org/10.1038/ncomms1467) in their research. Raw dataset is available at the [Rice Diversity website](http://www.ricediversity.org/data/). Pre-arranged dataset is available in this GitHub repository and you may loaded in R by
+
+``` r
+load(url("https://github.com/oumarkme/TSDFGS/raw/main/data/rice.RData"))
+```
+
