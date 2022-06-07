@@ -1,0 +1,25 @@
+{
+    "args": [
+        "-std=gnu++14",
+        "-I/usr/share/R/include",
+        "-DNDEBUG",
+        "-fpic",
+        "-fdebug-prefix-map=/build/r-base-apO4Ea/r-base-4.2.0=.",
+        "-fstack-protector-strong",
+        "-D_FORTIFY_SOURCE=2",
+        "-I/home/mark/R/x86_64-pc-linux-gnu-library/4.2/Rcpp/include",
+        "-I/usr/lib/llvm-10/lib/clang/10.0.0/include",
+        "-I/usr/include/c++/9",
+        "-I/usr/include/x86_64-linux-gnu/c++/9",
+        "-I/usr/include/c++/9/backward",
+        "-I/usr/lib/gcc/x86_64-linux-gnu/9/include",
+        "-I/usr/local/include",
+        "-I/usr/include/x86_64-linux-gnu",
+        "-I/usr/include"
+    ],
+    "pch": "RcppEigen",
+    "is_cpp": true,
+    "hash": "165425361716542497581654249758",
+    "compiler": "1465303102426788192",
+    "rversion": "4.2.0"
+}
