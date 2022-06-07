@@ -10,6 +10,9 @@
 #' @param n_iter Times of iteration. (default = 30)
 #' @param multi.threads Default: TRUE
 #' @return A vector of r-scores of each iteration
+#' @examples
+#' data(geno)
+#' \dontrun{nt2r(geno, 50)}
 nt2r = function(geno, nt, n_iter = 30, multi.threads = TRUE){
   
   # Calculate r-scores
@@ -44,6 +47,9 @@ nt2r = function(geno, nt, n_iter = 30, multi.threads = TRUE){
 #' @param n_iter Number of simulation of each training set size. Automatically gave a suitable number by default.
 #' @param multi.threads Default: TRUE. Set as FALSE if you just want to run it by single thread.
 #' @return Estimation of parameters.
+#' @examples
+#' data(geno)
+#' \dontrun{FGCM(geno)}
 FGCM = function(geno, nt = NULL, n_iter = NULL, multi.threads = TRUE){
   
   # Basic setting
@@ -97,6 +103,10 @@ FGCM = function(geno, nt = NULL, n_iter = NULL, multi.threads = TRUE){
 #' @param multi.threads Default (multi.threads = TRUE) use 75% of threads if the computer has more than 4 threads.
 #' @return An operating curve and its information.
 #' @export
+#' @examples
+#' data(geno)
+#' \dontrun{SSDFGS(geno)}
+#' 
 SSDFGS = function(geno, nt = NULL, n_iter = NULL, multi.threads = TRUE){
   
   par = FGCM(geno, nt, n_iter, multi.threads)

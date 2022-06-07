@@ -33,6 +33,10 @@
 #' @return This function will return 3 information including OPTtrain (a vector of chosen optimal training set), TOPscore (highest scores of before iteration), and ITERscore (criteria scores of each iteration).
 #' 
 #' @export
+#' @examples
+#' data(geno)
+#' \dontrun{optTrain(geno, cand = 1:404, n.train = 100)}
+#' 
 optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore", min.iter=NULL)
 {  
   if(!method%in%c("rScore","PEV","CD")){stop("Method not found. Please choose one from (rScore, PEV, CD)")}

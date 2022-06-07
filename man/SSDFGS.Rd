@@ -21,6 +21,11 @@ An operating curve and its information.
 \description{
 This function is designed to generate an operating curve for sample size determination
 }
+\examples{
+data(geno)
+\dontrun{SSDFGS(geno)}
+
+}
 \author{
 Jen-Hsiang Ou & Po-Ya Wu
 }

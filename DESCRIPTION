@@ -1,7 +1,7 @@
 Package: TSDFGS
 Type: Package
 Title: Training set determination for genomic selection
-Version: 1.1
+Version: 2.0
 Date: 2022-06-03
 Authors@R: c(
         person("Jen-Hsiang", "Ou", 
@@ -33,3 +33,6 @@ RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/oumarkme/TSDFGS
 BugReports: https://github.com/oumarkme/TSDFGS/issues
+Depends: 
+    R (>= 2.10)
+LazyData: true

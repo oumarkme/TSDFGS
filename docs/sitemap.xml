@@ -28,6 +28,9 @@
     <loc>/reference/cd_score.html</loc>
   </url>
   <url>
+    <loc>/reference/geno.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -41,5 +44,8 @@
   </url>
   <url>
     <loc>/reference/r_score.html</loc>
+  </url>
+  <url>
+    <loc>/reference/subpop.html</loc>
   </url>
 </urlset>

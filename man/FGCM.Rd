@@ -21,3 +21,7 @@ Estimation of parameters.
 \description{
 A function for fitting logisti growth model
 }
+\examples{
+data(geno)
+\dontrun{FGCM(geno)}
+}

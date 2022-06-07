@@ -25,6 +25,10 @@ using Eigen::VectorXd;
 //' @import RcppEigen
 //' 
 //' @export
+//' @examples
+//' data(geno)
+//' \dontrun{r_score(geno[1:50, ], geno[51:100])}
+//' 
 // [[Rcpp::export]]
 float r_score(Eigen::MatrixXd X, Eigen::MatrixXd X0)
 {

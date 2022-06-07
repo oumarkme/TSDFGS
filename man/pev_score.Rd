@@ -17,6 +17,11 @@ A floating-point number, PEV score.
 \description{
 This function calculate prediction error variance (PEV) score \url{doi:10.1186/s12711-015-0116-6} by given training set and test set.
 }
+\examples{
+data(geno)
+\dontrun{pev_score(geno[1:50, ], geno[51:100])}
+
+}
 \author{
 Jen-Hsiang Ou
 }

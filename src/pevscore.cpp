@@ -25,6 +25,9 @@ using Eigen::VectorXd;
 //' @import Rcpp
 //' @import RcppEigen
 //' @export
+//' @examples
+//' data(geno)
+//' \dontrun{pev_score(geno[1:50, ], geno[51:100])}
 //' 
 // [[Rcpp::export]]
 float pev_score(Eigen::MatrixXd X, Eigen::MatrixXd X0)

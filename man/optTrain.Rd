@@ -35,6 +35,11 @@ This function will return 3 information including OPTtrain (a vector of chosen o
 \description{
 This function is designed for determining optimal training set.
 }
+\examples{
+data(geno)
+\dontrun{optTrain(geno, cand = 1:404, n.train = 100)}
+
+}
 \author{
 Jen-Hsiang Ou
 }

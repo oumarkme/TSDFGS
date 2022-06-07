@@ -21,3 +21,7 @@ A vector of r-scores of each iteration
 \description{
 Calculate r-scores (un-target) by in parallel.
 }
+\examples{
+data(geno)
+\dontrun{nt2r(geno, 50)}
+}
