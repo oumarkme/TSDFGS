@@ -20,7 +20,6 @@ This function calculate CD-score \url{doi:10.1186/1297-9686-28-4-359} by given t
 \examples{
 data(geno)
 \dontrun{cd_score(geno[1:50, ], geno[51:100])}
-
 }
 \author{
 Jen-Hsiang Ou

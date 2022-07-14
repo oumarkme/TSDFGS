@@ -20,7 +20,6 @@ This function calculate prediction error variance (PEV) score \url{doi:10.1186/s
 \examples{
 data(geno)
 \dontrun{pev_score(geno[1:50, ], geno[51:100])}
-
 }
 \author{
 Jen-Hsiang Ou

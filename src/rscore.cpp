@@ -28,6 +28,7 @@ using Eigen::VectorXd;
 //' @examples
 //' data(geno)
 //' \dontrun{r_score(geno[1:50, ], geno[51:100])}
+//' @rawNamespace useDynLib(TSDFGS); import(RcppEigen); importFrom(Rcpp, evalCpp)
 //' 
 // [[Rcpp::export]]
 float r_score(Eigen::MatrixXd X, Eigen::MatrixXd X0)

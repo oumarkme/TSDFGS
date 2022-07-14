@@ -20,7 +20,6 @@ This function calculate r-score \url{doi:10.1007/s00122-019-03387-0} by given tr
 \examples{
 data(geno)
 \dontrun{r_score(geno[1:50, ], geno[51:100])}
-
 }
 \author{
 Jen-Hsiang Ou

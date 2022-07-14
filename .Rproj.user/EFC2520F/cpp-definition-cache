@@ -1,7 +1,7 @@
 [
     {
         "file": "/Users/mark/Dropbox/Projects/TSDFGS/src/cdscore.cpp",
-        "file_last_write": 1657790328.0,
+        "file_last_write": 1657792418.0,
         "definitions": [
             {
                 "usr": "c:@F@cd_score#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#",
@@ -9,14 +9,14 @@
                 "parent_name": "",
                 "name": "cd_score(Eigen::MatrixXd, Eigen::MatrixXd)",
                 "file": "/Users/mark/Dropbox/Projects/TSDFGS/src/cdscore.cpp",
-                "line": 34,
+                "line": 35,
                 "column": 7
             }
         ]
     },
     {
         "file": "/Users/mark/Dropbox/Projects/TSDFGS/src/pevscore.cpp",
-        "file_last_write": 1657790322.0,
+        "file_last_write": 1657792430.0,
         "definitions": [
             {
                 "usr": "c:@F@pev_score#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#",
@@ -24,14 +24,14 @@
                 "parent_name": "",
                 "name": "pev_score(Eigen::MatrixXd, Eigen::MatrixXd)",
                 "file": "/Users/mark/Dropbox/Projects/TSDFGS/src/pevscore.cpp",
-                "line": 33,
+                "line": 34,
                 "column": 7
             }
         ]
     },
     {
         "file": "/Users/mark/Dropbox/Projects/TSDFGS/src/rscore.cpp",
-        "file_last_write": 1657790315.0,
+        "file_last_write": 1657792423.0,
         "definitions": [
             {
                 "usr": "c:@F@r_score#$@N@Eigen@S@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#",
@@ -39,7 +39,7 @@
                 "parent_name": "",
                 "name": "r_score(Eigen::MatrixXd, Eigen::MatrixXd)",
                 "file": "/Users/mark/Dropbox/Projects/TSDFGS/src/rscore.cpp",
-                "line": 33,
+                "line": 34,
                 "column": 7
             }
         ]

@@ -46,11 +46,18 @@ install.packages("TSDFGS")
 - `optTrain`: Function for determining optimal training set ([more](https://www.oumark.me/TSDFGS/reference/optTrain.html)).
 - `SSDFGS`: Function for determining reasonable training set size ([more](https://www.oumark.me/TSDFGS/reference/SSDFGS.html)).
 
+If you wanted to install the recent version of `r_score()` function independently, you may download the `rscore.cpp` script from my GitHub repo and install it by:
+``` r
+download.file("https://raw.githubusercontent.com/oumarkme/TSDFGS/main/src/rscore.cpp", "rscore.cpp")
+sourceCpp("rscore.cpp")
+```
+
 ## Example dataset
 An example data provided for testing this package. The rice genome data was published by [Zhao et al. (2011)](https://doi.org/10.1038/ncomms1467) in their research. Raw dataset is available at the [Rice Diversity website](http://www.ricediversity.org/data/). Pre-arranged dataset is available in this GitHub repository and you may loaded in R by
 
 ``` r
-load(url("https://github.com/oumarkme/TSDFGS/raw/main/data/rice.RData"))
+download.file("https://github.com/oumarkme/TSDFGS/raw/main/data/geno.rda", "geno.rda")
+load("geno.rda")
 ```
 
 ## Authors

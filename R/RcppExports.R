@@ -18,6 +18,7 @@
 #' @examples
 #' data(geno)
 #' \dontrun{cd_score(geno[1:50, ], geno[51:100])}
+#' @rawNamespace useDynLib(TSDFGS); import(RcppEigen); importFrom(Rcpp, evalCpp)
 #' 
 cd_score <- function(X, X0) {
     .Call('_TSDFGS_cd_score', PACKAGE = 'TSDFGS', X, X0)
@@ -39,6 +40,7 @@ cd_score <- function(X, X0) {
 #' @examples
 #' data(geno)
 #' \dontrun{pev_score(geno[1:50, ], geno[51:100])}
+#' @rawNamespace useDynLib(TSDFGS); import(RcppEigen); importFrom(Rcpp, evalCpp)
 #' 
 pev_score <- function(X, X0) {
     .Call('_TSDFGS_pev_score', PACKAGE = 'TSDFGS', X, X0)
@@ -60,6 +62,7 @@ pev_score <- function(X, X0) {
 #' @examples
 #' data(geno)
 #' \dontrun{r_score(geno[1:50, ], geno[51:100])}
+#' @rawNamespace useDynLib(TSDFGS); import(RcppEigen); importFrom(Rcpp, evalCpp)
 #' 
 r_score <- function(X, X0) {
     .Call('_TSDFGS_r_score', PACKAGE = 'TSDFGS', X, X0)
