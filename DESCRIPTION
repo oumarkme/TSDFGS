@@ -25,7 +25,8 @@ Imports:
     latex2exp,
     lifecycle,
     parallel,
-    Rcpp (>= 1.0.8.3)
+    Rcpp (>= 1.0.8.3),
+    RcppEigen
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
