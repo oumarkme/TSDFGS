@@ -1,3 +1,4 @@
+#define EIGEN_PERMANENTLY_DISABLE_STUPID_WARNINGS
 #include <Rcpp.h>
 #include <RcppEigen.h>
 #include <Eigen/Core>
