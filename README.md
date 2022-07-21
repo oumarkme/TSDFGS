@@ -49,7 +49,7 @@ install.packages("TSDFGS")
 If you wanted to install the recent version of `r_score()` function independently, you may download the `rscore.cpp` script from my GitHub repo and install it by:
 ``` r
 download.file("https://raw.githubusercontent.com/oumarkme/TSDFGS/main/src/rscore.cpp", "rscore.cpp")
-sourceCpp("rscore.cpp")
+Rcpp::sourceCpp("rscore.cpp")
 ```
 
 ## Example dataset
