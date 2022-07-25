@@ -3,3 +3,6 @@
 ^\.github
 ^\.gitignore
 ^\.gitattributes
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

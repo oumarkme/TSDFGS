@@ -1,0 +1,19 @@
+[
+    {
+        "file": "/Users/mark/Dropbox/Projects/TSDFGS/src/rscore.cpp",
+        "file_last_write": 1658759486.0,
+        "definitions": [
+            {
+                "usr": "c:@F@r_score#I#I#f#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "r_score(int, int, float)",
+                "file": "/Users/mark/Dropbox/Projects/TSDFGS/src/rscore.cpp",
+                "line": 35,
+                "column": 7,
+                "hidden": false
+            }
+        ],
+        "hidden": false
+    }
+]
