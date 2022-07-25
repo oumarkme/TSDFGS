@@ -4,6 +4,7 @@ export(cd_score)
 export(pev_score)
 export(r_score)
 import(Rcpp)
+import(STPGA)
 importFrom(lifecycle,deprecated)
 useDynLib(TSDFGS); import(RcppEigen); importFrom(Rcpp, evalCpp)
 
