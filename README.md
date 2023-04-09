@@ -34,7 +34,7 @@ You may also install the stable version from CRAN, which the most recent functio
 install.packages("TSDFGS")
 ```
 
-- All functions were developed under r version 4.2.0 and tested in both version 3.6.3 and 4.1.1. However, we recommend you to use this package with R version > 3.6.3.
+- All functions were developed under r version 4.2.0 and tested in versions 3.6.3 and 4.1.1. However, we recommend you use this package with R version > 3.6.3.
 - Rcpp and RcppEigen were used in the package. In addition, the core C++ scripts were published on GitHub for those who want a better performance.
 
 
@@ -46,10 +46,10 @@ install.packages("TSDFGS")
 - `optTrain`: Function for determining optimal training set ([more](https://www.oumark.me/TSDFGS/reference/optTrain.html)).
 - `SSDFGS`: Function for determining reasonable training set size ([more](https://www.oumark.me/TSDFGS/reference/SSDFGS.html)).
 
-Note that `cd_score()` and `pev_score()` are using functions from [STPGA](https://CRAN.R-project.org/package=STPGA) package. Try their package for advanced usage.
+Note that `cd_score()` and `pev_score()`  functions are also available from the [STPGA](https://CRAN.R-project.org/package=STPGA) package by Deniz Akdemir. Try their package for advanced usage.
 
 
-If you wanted to install the recent version of `r_score()` function independently, you may download the `rscore.cpp` script from my GitHub repo and install it by:
+If you want to install the recent version of the `r_score()` function independently, you may download the `rscore.cpp` script from my GitHub repo and install it by:
 ``` r
 library(Rcpp, RcppEigen)
 download.file("https://raw.githubusercontent.com/oumarkme/TSDFGS/main/src/rscore.cpp", "rscore.cpp")
@@ -57,7 +57,7 @@ Rcpp::sourceCpp("rscore.cpp")
 ```
 
 ## Example dataset
-An example data provided for testing this package. The rice genome data was published by [Zhao et al. (2011)](https://doi.org/10.1038/ncomms1467) in their research. Raw dataset is available at the [Rice Diversity website](http://www.ricediversity.org/data/). Pre-arranged dataset is available in this GitHub repository and you may loaded in R by
+An example of data provided for testing this package. Zhao et al. (2011) published the rice genome data in their research. The raw dataset is available on the [Rice Diversity website](http://www.ricediversity.org/data/). The pre-arranged dataset is available in this GitHub repository, and you may be loaded in R by
 
 ``` r
 download.file("https://github.com/oumarkme/TSDFGS/raw/main/data/geno.rda", "geno.rda")
@@ -82,7 +82,7 @@ load("geno.rda")
     
 ## Citing this package
 
-If you make use of TSDFGS package in your research, we would appreciate a citation of following papers:
+If you make use of the TSDFGS package in your research, we would appreciate a citation of the following papers:
 
-- Ou, J.-H., and Liao, C.-T. Training set determination for genomic selection. Theor Appl Genet 132, 2781–2792 (2019). [https://doi.org/10.1007/s00122-019-03387-0](https://doi.org/10.1007/s00122-019-03387-0)
-- Wu, P.-Y., Ou, J.-H., and Liao, C.-T. Sample size determination for training set optimization in genomic prediction. Under review (2022).
+- Ou, J.-H., and Liao, C.-T. Training set determination for genomic selection. Theoretical and Applied Genetics 132, 2781–2792 (2019). [https://doi.org/10.1007/s00122-019-03387-0](https://doi.org/10.1007/s00122-019-03387-0)
+- Wu, P.-Y., Ou, J.-H., and Liao, C.-T. Sample size determination for training set optimization in genomic prediction. Theoretical and Applied Genetics 136, 57 (2023). [https://doi.org/10.1007/s00122-023-04254-9](https://doi.org/10.1007/s00122-023-04254-9)
