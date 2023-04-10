@@ -1,7 +1,7 @@
 Package: TSDFGS
 Type: Package
 Title: Training Set Determination For Genomic Selection
-Version: 2.4
+Version: 2.4.1
 Encoding: UTF-8
 Date: 2023-04-09
 Authors@R: c(

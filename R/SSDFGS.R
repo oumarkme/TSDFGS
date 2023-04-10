@@ -10,13 +10,14 @@
 #' @param n_iter Times of iteration. (default = 30)
 #' @param multi.threads Default: FALSE. Multi-thread function is only avalyble for mac or linux systems.
 #' @return A vector of r-scores of each iteration
+#' @export
 #' @examples
 #' data(geno)
 #' \dontrun{nt2r(geno, 50)}
 nt2r = function(geno, nt, n_iter = 30, multi.threads = FALSE){
 
   # Calculate r-scores
-  if(multi.threads){
+  if(multi.threads & .Platform$OS.type == 'unix'){
     cores = parallel::detectCores()
     if(cores <= 4){
       n_core = max(round(cores/2), 1)
@@ -47,6 +48,7 @@ nt2r = function(geno, nt, n_iter = 30, multi.threads = FALSE){
 #' @param n_iter Number of simulation of each training set size. Automatically gave a suitable number by default.
 #' @param multi.threads Default: FALSE. Multi-thread function is only avalyble for mac or linux systems.
 #' @return Estimation of parameters.
+#' @export
 #' @examples
 #' data(geno)
 #' \dontrun{FGCM(geno)}
@@ -60,7 +62,7 @@ FGCM = function(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE){
   if(is.null(n_iter)) n_iter = length(nt)
 
   n_core = detectCores()
-  if(multi.threads | n_core > 4){
+  if(multi.threads & n_core > 4 & .Platform$OS.type == 'unix'){
     n_core = round(n_core * 4 / 5)
   }else{
     n_core = 1
@@ -115,6 +117,8 @@ FGCM = function(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE){
 #' \dontrun{SSDFGS(geno)}
 #'
 SSDFGS = function(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE){
+
+  if(.Platform$OS.type != 'unix') multi.threads = FALSE
 
   par = FGCM(geno, nt, n_iter, multi.threads)
   r.score = r = NULL
