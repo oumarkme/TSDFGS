@@ -25,9 +25,9 @@ nt2r = function(geno, nt, n_iter = 30, multi.threads = FALSE){
       n_core = round(cores * 3 / 4)
       if(n_iter < cores) n_core = n_iter
     }
-    r = unlist(parallel::mclapply(1:n_iter, function(i) return(max(TSDFGS::optTrain(geno, seq(nrow(geno)), nt)$TOPscore)), mc.cores = n_core))
+    r = unlist(parallel::mclapply(1:n_iter, function(i) return(max(TSDFGS::optTrain(geno, seq(nrow(geno)), nt, console=F)$TOPscore)), mc.cores = n_core))
   }else{
-    r = sapply(1:n_iter, function(i) return(max(TSDFGS::optTrain(geno, seq(nrow(geno)), nt)$TOPscore)))
+    r = sapply(1:n_iter, function(i) return(max(TSDFGS::optTrain(geno, seq(nrow(geno)), nt, console=F)$TOPscore)))
   }
 
   return(r)
@@ -73,12 +73,12 @@ FGCM = function(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE){
 
   if(n_core > 1){
       result$r = unlist(parallel::mclapply(1:nrow(result), function(i){
-      r.score = max(TSDFGS::optTrain(geno, seq(nrow(geno)), result$n[i])$TOPscore)
+      r.score = max(TSDFGS::optTrain(geno, seq(nrow(geno)), result$n[i], console=F)$TOPscore)
       return(r.score)
     }, mc.cores = n_core))
   }else{
     for(i in 1:nrow(result)){
-      result$r[i] = max(TSDFGS::optTrain(geno, seq(nrow(geno)), result$n[i])$TOPscore)
+      result$r[i] = max(TSDFGS::optTrain(geno, seq(nrow(geno)), result$n[i], console=F)$TOPscore)
     }
   }
 
@@ -120,6 +120,7 @@ SSDFGS = function(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE){
 
   if(.Platform$OS.type != 'unix') multi.threads = FALSE
 
+  cat('Fitting logistic growth curve model...')
   par = FGCM(geno, nt, n_iter, multi.threads)
   r.score = r = NULL
 
@@ -135,6 +136,7 @@ SSDFGS = function(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE){
   OC.fit = data.frame(nt = seq(min(par$sim$n), max(par$sim$n)), r.score = sapply(seq(min(par$sim$n), max(par$sim$n)), RErs))
 
   # Plot (Operating curve)
+  cat('Plotting...')
   anno = data.frame(nt = c(), r.score = c())
   if(min(OC.fit$r.score) <= 0.95 & max(OC.fit$r.score) >= 0.95){
     anno = rbind(anno, OC.fit[which.min(abs(OC.fit$r.score - 0.95)),])

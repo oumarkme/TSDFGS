@@ -1,6 +1,6 @@
 ####################################################
-#                             \-- r-score (RPT)    # 
-#              \-- target ----\-- pev-score (PPT)  # 
+#                             \-- r-score (RPT)    #
+#              \-- target ----\-- pev-score (PPT)  #
 #              \              \-- CD-score (CPT)   #
 #   \-- pop ---\                                   #
 #   \          \              \-- r-score(RPN)     #
@@ -17,11 +17,11 @@
 ####################################################
 
 #' Optimal training set determination
-#' 
+#'
 #' This function is designed for determining optimal training set.
-#' 
+#'
 #' @author Jen-Hsiang Ou
-#' 
+#'
 #' @param geno A numeric matrix of principal components (rows: individuals; columns: PCs).
 #' @param cand An integer vector of which rows of individuals are candidates of the training set in the geno matrix.
 #' @param n.train The size of the target training set. This could be determined with the help of the ssdfgp function provided in this package.
@@ -29,20 +29,20 @@
 #' @param test An integer vector of which rows of individuals are in the test set in the geno matrix. The algorithm will use an un-target method if it remains NULL.
 #' @param method Choices are rScore, PEV and CD. rScore will be used by default.
 #' @param min.iter Minimum iteration of all methods can be appointed. One should always check if the algorithm is converged or not. A minimum iteration will set by considering the candidate and test set size if it remains NULL.
-#' 
+#'
 #' @return This function will return 3 information including OPTtrain (a vector of chosen optimal training set), TOPscore (highest scores of before iteration), and ITERscore (criteria scores of each iteration).
-#' 
+#'
 #' @export
 #' @examples
 #' data(geno)
 #' \dontrun{optTrain(geno, cand = 1:404, n.train = 100)}
-#' 
-optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore", min.iter=NULL)
-{  
+#'
+optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore", min.iter=NULL, console=TRUE)
+{
   if(!method%in%c("rScore","PEV","CD")){stop("Method not found. Please choose one from (rScore, PEV, CD)")}
   n=n.train; N=nrow(geno); Nc=length(cand)
   geno = as.matrix(geno)
-  
+
   if(is.null(subpop)){
     if(is.null(test)){
       if(method=="PEV"){
@@ -64,7 +64,8 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             iter.score=c(iter.score, new.score)
             top.score=c(top.score, score)
           }
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-6){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
@@ -87,7 +88,8 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             iter.score=c(iter.score, new.score)
             top.score=c(top.score, score)
           }
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-6){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
@@ -110,7 +112,8 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             iter.score=c(iter.score, new.score)
             top.score=c(top.score, score)
           }
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-6){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
@@ -142,7 +145,8 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             }
           }
           iter.score=c(iter.score,mean(score)); top.score=c(top.score, min(score))
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-6){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
@@ -166,7 +170,8 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             iter.score=c(iter.score, new.score)
             top.score=c(top.score,score)
           }
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-10){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
@@ -196,7 +201,8 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             }
           }
           iter.score=c(iter.score,mean(score)); top.score=c(top.score, max(score))
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-6){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
@@ -238,11 +244,12 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             iter.score=c(iter.score,new.score)
             top.score=c(top.score,score)
           }
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-6){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
-        
+
       }else if(method=="CD"){
         ## pop untarget cd
         if(is.null(min.iter)){min.iter=round(sqrt(Nc*n)*50)}
@@ -275,7 +282,8 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             iter.score=c(iter.score,new.score)
             top.score=c(top.score,score)
           }
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-10){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
@@ -311,14 +319,15 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             iter.score=c(iter.score,new.score)
             top.score=c(top.score,score)
           }
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-6){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
       }
     }else{
       if(method=="PEV"){
-        
+
         ## pop target pev
         if(is.null(min.iter)){min.iter=round(sqrt(Nc*n)*50)}
         pops = names(table(subpop))
@@ -351,7 +360,8 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             iter.score=c(iter.score,new.score)
             top.score=c(top.score,score)
           }
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-6){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
@@ -388,7 +398,8 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             iter.score=c(iter.score,new.score)
             top.score=c(top.score,score)
           }
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-6){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
@@ -425,7 +436,8 @@ optTrain = function(geno, cand, n.train, subpop=NULL, test=NULL, method="rScore"
             iter.score=c(iter.score,new.score)
             top.score=c(top.score,score)
           }
-          cat(iter, "..", sep=""); iter = iter + 1
+          if(console) cat(iter, "..", sep="")
+          iter = iter + 1
           if(iter > min.iter){if(abs(top.score[iter]-top.score[iter-sqrt(Nc*n)*5])<1e-6){stop=1}}
           if(iter > (min.iter*2)){stop=1}
         }
