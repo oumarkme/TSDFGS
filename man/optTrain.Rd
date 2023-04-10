@@ -11,7 +11,8 @@ optTrain(
   subpop = NULL,
   test = NULL,
   method = "rScore",
-  min.iter = NULL
+  min.iter = NULL,
+  console = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ optTrain(
 \item{method}{Choices are rScore, PEV and CD. rScore will be used by default.}
 
 \item{min.iter}{Minimum iteration of all methods can be appointed. One should always check if the algorithm is converged or not. A minimum iteration will set by considering the candidate and test set size if it remains NULL.}
+
+\item{console}{Default: TRUE. Set it to FALSE if you don't want the function printing out the number count of each iteration.}
 }
 \value{
 This function will return 3 information including OPTtrain (a vector of chosen optimal training set), TOPscore (highest scores of before iteration), and ITERscore (criteria scores of each iteration).
