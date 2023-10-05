@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">TSDFGS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,8 @@
 <span>  subpop <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  test <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"rScore"</span>,</span>
-<span>  min.iter <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  min.iter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  console <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -81,6 +82,10 @@
 
 <dt>min.iter</dt>
 <dd><p>Minimum iteration of all methods can be appointed. One should always check if the algorithm is converged or not. A minimum iteration will set by considering the candidate and test set size if it remains NULL.</p></dd>
+
+
+<dt>console</dt>
+<dd><p>Default: TRUE. Set it to FALSE if you don't want the function printing out the number count of each iteration.</p></dd>
 
 </dl></div>
     <div class="section level2">

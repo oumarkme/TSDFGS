@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">TSDFGS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +76,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"TSDFGS"</span><span class="op">)</span></span></code></pre></div>
 <ul>
-<li>All functions were developed under r version 4.2.0 and tested in both version 3.6.3 and 4.1.1. However, we recommend you to use this package with R version &gt; 3.6.3.</li>
+<li>All functions were developed under r version 4.2.0 and tested in versions 3.6.3 and 4.1.1. However, we recommend you use this package with R version &gt; 3.6.3.</li>
 <li>Rcpp and RcppEigen were used in the package. In addition, the core C++ scripts were published on GitHub for those who want a better performance.</li>
 </ul>
 </div>
@@ -95,8 +95,8 @@
 <li>
 <code>SSDFGS</code>: Function for determining reasonable training set size (<a href="https://www.oumark.me/TSDFGS/reference/SSDFGS.html" class="external-link">more</a>).</li>
 </ul>
-<p>Note that <code><a href="reference/cd_score.html">cd_score()</a></code> and <code><a href="reference/pev_score.html">pev_score()</a></code> are using functions from <a href="https://CRAN.R-project.org/package=STPGA" class="external-link">STPGA</a> package. Try their package for advanced usage.</p>
-<p>If you wanted to install the recent version of <code><a href="reference/r_score.html">r_score()</a></code> function independently, you may download the <code>rscore.cpp</code> script from my GitHub repo and install it by:</p>
+<p>Note that <code><a href="reference/cd_score.html">cd_score()</a></code> and <code><a href="reference/pev_score.html">pev_score()</a></code> functions are also available from the <a href="https://CRAN.R-project.org/package=STPGA" class="external-link">STPGA</a> package by Deniz Akdemir. Try their package for advanced usage.</p>
+<p>If you want to install the recent version of the <code><a href="reference/r_score.html">r_score()</a></code> function independently, you may download the <code>rscore.cpp</code> script from my GitHub repo and install it by:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rcpp.org" class="external-link">Rcpp</a></span>, <span class="va">RcppEigen</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/oumarkme/TSDFGS/main/src/rscore.cpp"</span>, <span class="st">"rscore.cpp"</span><span class="op">)</span></span>
@@ -105,7 +105,7 @@
 <div class="section level2">
 <h2 id="example-dataset">Example dataset<a class="anchor" aria-label="anchor" href="#example-dataset"></a>
 </h2>
-<p>An example data provided for testing this package. The rice genome data was published by <a href="https://doi.org/10.1038/ncomms1467" class="external-link">Zhao et al. (2011)</a> in their research. Raw dataset is available at the <a href="http://www.ricediversity.org/data/" class="external-link">Rice Diversity website</a>. Pre-arranged dataset is available in this GitHub repository and you may loaded in R by</p>
+<p>An example of data provided for testing this package. Zhao et al. (2011) published the rice genome data in their research. The raw dataset is available on the <a href="http://www.ricediversity.org/data/" class="external-link">Rice Diversity website</a>. The pre-arranged dataset is available in this GitHub repository, and you may be loaded in R by</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="st">"https://github.com/oumarkme/TSDFGS/raw/main/data/geno.rda"</span>, <span class="st">"geno.rda"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"geno.rda"</span><span class="op">)</span></span></code></pre></div>
@@ -143,7 +143,7 @@
 <div class="section level2">
 <h2 id="citing-this-package">Citing this package<a class="anchor" aria-label="anchor" href="#citing-this-package"></a>
 </h2>
-<p>If you make use of TSDFGS package in your research, we would appreciate a citation of following papers:</p>
+<p>If you make use of the TSDFGS package in your research, we would appreciate a citation of the following papers:</p>
 <ul>
 <li>Ou, J.-H., and Liao, C.-T. Training set determination for genomic selection. Theoretical and Applied Genetics 132, 2781–2792 (2019). <a href="https://doi.org/10.1007/s00122-019-03387-0" class="external-link">https://doi.org/10.1007/s00122-019-03387-0</a>
 </li>

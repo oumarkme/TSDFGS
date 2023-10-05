@@ -20,7 +20,7 @@
 #' \dontrun{cd_score(geno[1:50, ], geno[51:100])}
 #'
 cd_score <- function(X, X0) {
-    .Call('_TSDFGS_cd_score', PACKAGE = 'TSDFGS', X, X0)
+    .Call(`_TSDFGS_cd_score`, X, X0)
 }
 
 #' PEV score
@@ -42,7 +42,7 @@ cd_score <- function(X, X0) {
 #' \dontrun{pev_score(geno[1:50, ], geno[51:100])}
 #'
 pev_score <- function(X, X0) {
-    .Call('_TSDFGS_pev_score', PACKAGE = 'TSDFGS', X, X0)
+    .Call(`_TSDFGS_pev_score`, X, X0)
 }
 
 #' r-score
@@ -63,6 +63,6 @@ pev_score <- function(X, X0) {
 #' \dontrun{r_score(geno[1:50, ], geno[51:100])}
 #'
 r_score <- function(X, X0) {
-    .Call('_TSDFGS_r_score', PACKAGE = 'TSDFGS', X, X0)
+    .Call(`_TSDFGS_r_score`, X, X0)
 }
 
