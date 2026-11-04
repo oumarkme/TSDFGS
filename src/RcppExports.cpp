@@ -11,47 +11,63 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// cd_score
-float cd_score(Eigen::MatrixXd X, Eigen::MatrixXd X0);
-RcppExport SEXP _TSDFGS_cd_score(SEXP XSEXP, SEXP X0SEXP) {
+// score_matrices
+double score_matrices(int crit, Rcpp::NumericMatrix x, Rcpp::NumericMatrix x0, bool legacy);
+RcppExport SEXP _TSDFGS_score_matrices(SEXP critSEXP, SEXP xSEXP, SEXP x0SEXP, SEXP legacySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X0(X0SEXP);
-    rcpp_result_gen = Rcpp::wrap(cd_score(X, X0));
+    Rcpp::traits::input_parameter< int >::type crit(critSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type x0(x0SEXP);
+    Rcpp::traits::input_parameter< bool >::type legacy(legacySEXP);
+    rcpp_result_gen = Rcpp::wrap(score_matrices(crit, x, x0, legacy));
     return rcpp_result_gen;
 END_RCPP
 }
-// pev_score
-float pev_score(Eigen::MatrixXd X, Eigen::MatrixXd X0);
-RcppExport SEXP _TSDFGS_pev_score(SEXP XSEXP, SEXP X0SEXP) {
+// score_rows
+double score_rows(int crit, Rcpp::NumericMatrix geno, Rcpp::IntegerVector train, Rcpp::IntegerVector test, bool legacy);
+RcppExport SEXP _TSDFGS_score_rows(SEXP critSEXP, SEXP genoSEXP, SEXP trainSEXP, SEXP testSEXP, SEXP legacySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X0(X0SEXP);
-    rcpp_result_gen = Rcpp::wrap(pev_score(X, X0));
+    Rcpp::traits::input_parameter< int >::type crit(critSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type geno(genoSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type train(trainSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type test(testSEXP);
+    Rcpp::traits::input_parameter< bool >::type legacy(legacySEXP);
+    rcpp_result_gen = Rcpp::wrap(score_rows(crit, geno, train, test, legacy));
     return rcpp_result_gen;
 END_RCPP
 }
-// r_score
-float r_score(Eigen::MatrixXd X, Eigen::MatrixXd X0);
-RcppExport SEXP _TSDFGS_r_score(SEXP XSEXP, SEXP X0SEXP) {
+// exchange_search
+Rcpp::List exchange_search(Rcpp::NumericMatrix geno, Rcpp::IntegerVector cand, Rcpp::IntegerVector sol0, Rcpp::Nullable<Rcpp::IntegerVector> test, Rcpp::Nullable<Rcpp::IntegerVector> group, int n_groups, int crit, bool maximize, double min_iter, double tol, double window, bool legacy, bool console);
+RcppExport SEXP _TSDFGS_exchange_search(SEXP genoSEXP, SEXP candSEXP, SEXP sol0SEXP, SEXP testSEXP, SEXP groupSEXP, SEXP n_groupsSEXP, SEXP critSEXP, SEXP maximizeSEXP, SEXP min_iterSEXP, SEXP tolSEXP, SEXP windowSEXP, SEXP legacySEXP, SEXP consoleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X0(X0SEXP);
-    rcpp_result_gen = Rcpp::wrap(r_score(X, X0));
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type geno(genoSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type cand(candSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type sol0(sol0SEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::IntegerVector> >::type test(testSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::IntegerVector> >::type group(groupSEXP);
+    Rcpp::traits::input_parameter< int >::type n_groups(n_groupsSEXP);
+    Rcpp::traits::input_parameter< int >::type crit(critSEXP);
+    Rcpp::traits::input_parameter< bool >::type maximize(maximizeSEXP);
+    Rcpp::traits::input_parameter< double >::type min_iter(min_iterSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< double >::type window(windowSEXP);
+    Rcpp::traits::input_parameter< bool >::type legacy(legacySEXP);
+    Rcpp::traits::input_parameter< bool >::type console(consoleSEXP);
+    rcpp_result_gen = Rcpp::wrap(exchange_search(geno, cand, sol0, test, group, n_groups, crit, maximize, min_iter, tol, window, legacy, console));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_TSDFGS_cd_score", (DL_FUNC) &_TSDFGS_cd_score, 2},
-    {"_TSDFGS_pev_score", (DL_FUNC) &_TSDFGS_pev_score, 2},
-    {"_TSDFGS_r_score", (DL_FUNC) &_TSDFGS_r_score, 2},
+    {"_TSDFGS_score_matrices", (DL_FUNC) &_TSDFGS_score_matrices, 4},
+    {"_TSDFGS_score_rows", (DL_FUNC) &_TSDFGS_score_rows, 5},
+    {"_TSDFGS_exchange_search", (DL_FUNC) &_TSDFGS_exchange_search, 13},
     {NULL, NULL, 0}
 };
 

@@ -12,7 +12,8 @@ optTrain(
   test = NULL,
   method = "rScore",
   min.iter = NULL,
-  console = TRUE
+  console = TRUE,
+  seed = NULL
 )
 }
 \arguments{
@@ -22,7 +23,7 @@ optTrain(
 
 \item{n.train}{The size of the target training set. This could be determined with the help of the ssdfgp function provided in this package.}
 
-\item{subpop}{A character vector of sub-population's group name. The algorithm will ignore the population structure if it remains NULL.}
+\item{subpop}{A character vector of sub-population's group name. The algorithm will ignore the population structure if it remains NULL. Without \code{test}, it has one entry per candidate (same order as \code{cand}); with \code{test}, it has one entry per row of \code{geno}.}
 
 \item{test}{An integer vector of which rows of individuals are in the test set in the geno matrix. The algorithm will use an un-target method if it remains NULL.}
 
@@ -31,17 +32,30 @@ optTrain(
 \item{min.iter}{Minimum iteration of all methods can be appointed. One should always check if the algorithm is converged or not. A minimum iteration will set by considering the candidate and test set size if it remains NULL.}
 
 \item{console}{Default: TRUE. Set it to FALSE if you don't want the function printing out the number count of each iteration.}
+
+\item{seed}{Default: NULL. An integer passed to \code{set.seed} before the search, which changes the global random-number state. Leave it NULL to use the current state.}
 }
 \value{
-This function will return 3 information including OPTtrain (a vector of chosen optimal training set), TOPscore (highest scores of before iteration), and ITERscore (criteria scores of each iteration).
+This function will return a list with OPTtrain (a vector of chosen optimal training set), TOPscore (highest scores of before iteration), ITERscore (criteria scores of each iteration), n.iter (number of iterations run), and converged (TRUE if the search stopped by the convergence rule, FALSE if it stopped at twice \code{min.iter}).
 }
 \description{
 This function is designed for determining optimal training set.
+}
+\details{
+All twelve search routes of v2.4.2 (with or without sub-populations, targeted or
+un-targeted, and the three criteria) are kept. The search moves, their random-number
+order, the default numbers of iterations, and the stopping rule are the same as in
+v2.4.2, so that a given seed returns the training set of v2.4.2 (apart from the
+float-to-double change of the scores, see Details of \code{\link{r_score}}). The
+r-score is the criterion of Ou and Liao (2019) <doi:10.1007/s00122-019-03387-0>.
 }
 \examples{
 data(geno)
 \dontrun{optTrain(geno, cand = 1:404, n.train = 100)}
 
+}
+\references{
+Ou, J.-H., & Liao, C.-T. (2019). Training set determination for genomic selection. Theoretical and Applied Genetics, 132, 2781-2792. <doi:10.1007/s00122-019-03387-0>
 }
 \author{
 Jen-Hsiang Ou

@@ -42,7 +42,6 @@ nt2r = function(geno, nt, n_iter = 30, multi.threads = FALSE){
 #' @title Fit logistic growth curve model
 #' @description A function for fitting logisti growth model
 #' @import parallel
-#' @import dplyr
 #' @param geno Genotype information saved as a dataframe. Columns represent variants (SNPs or PCs).
 #' @param nt A numerical vector of training set sample size for estimating logistic growth curve parameters
 #' @param n_iter Number of simulation of each training set size. Automatically gave a suitable number by default.
@@ -103,14 +102,11 @@ FGCM = function(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE){
 #' @author Jen-Hsiang Ou & Po-Ya Wu
 #'
 #' @import parallel
-#' @import dplyr
-#' @import ggplot2
-#' @import latex2exp
 #' @param geno A numeric data frame carried genotype information (column: PCs, row: sample)
 #' @param nt A numeric vector carried training set sizes for r-score simulation.
 #' @param n_iter Number of iterations for estimating parameters.
 #' @param multi.threads Default: False. If TRUE, this function will use 75\% of threads if the computer has more than 4 threads. Multi-thread computing is only avalible in mac and linux environments.
-#' @return An operating curve and its information.
+#' @return A list with the operating curve and growth curve figures (OC.fig and GC.fig; ggplot objects, or NULL when the ggplot2 package is not installed), the logistic growth curve parameters, and the operating curve data (OC.fit).
 #' @export
 #' @examples
 #' data(geno)
@@ -122,7 +118,6 @@ SSDFGS = function(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE){
 
   cat('Fitting logistic growth curve model...')
   par = FGCM(geno, nt, n_iter, multi.threads)
-  r.score = r = NULL
 
   # Operating curve functions
   GC = function(n){
@@ -135,8 +130,7 @@ SSDFGS = function(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE){
   }
   OC.fit = data.frame(nt = seq(min(par$sim$n), max(par$sim$n)), r.score = sapply(seq(min(par$sim$n), max(par$sim$n)), RErs))
 
-  # Plot (Operating curve)
-  cat('Plotting...')
+  # Points of the operating curve where RErs reaches 0.95 and 0.99
   anno = data.frame(nt = c(), r.score = c())
   if(min(OC.fit$r.score) <= 0.95 & max(OC.fit$r.score) >= 0.95){
     anno = rbind(anno, OC.fit[which.min(abs(OC.fit$r.score - 0.95)),])
@@ -145,20 +139,15 @@ SSDFGS = function(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE){
     anno = rbind(anno, OC.fit[which.min(abs(OC.fit$r.score - 0.99)),])
   }
 
-  plotOC = ggplot() +
-    geom_line(aes(x = nt, y = r.score), OC.fit) +
-    geom_point(aes(x = nt, y = r.score), anno, color = "red") +
-    annotate("segment", x = -Inf, xend = anno$nt, y = anno$r.score, yend = anno$r.score, color = "red", linetype = "dashed") +
-    annotate("segment", x = anno$nt, xend = anno$nt, y = anno$r.score, yend = -Inf, color = "red", linetype = "dashed") +
-    geom_text(aes(x = nt, y = r.score, label = paste0(" (", nt, ", ", round(r.score, digits = 2), ")")), anno, color = "red", hjust = "left", vjust = "top") +
-    labs(x = expression('Training set size (n'[t]*')'), y = expression('RErs(n'[t]*')'), title = "Operating curve")
-
-  # Plot(Growth curve)
-  plotGC = ggplot() +
-    geom_point(aes(x = n, y = r), data = par$sim, size = 0.8, alpha = 0.5) +
-    geom_line(aes(x = nt, y = r.score), data = GC.fit, color = "blue") +
-    labs(title = TeX(paste0("Logistic growth curve: $y=\\frac{", round(par$alpha, 3), "}{1+\\exp{(", round(par$beta, 3), "-", round(par$gamma, 3), "x)}}")),
-         x = expression('Training set size (n'[t]*')'), y = "r-score")
+  # Figures need ggplot2, which is an optional package; all numbers are returned without it.
+  cat('Plotting...')
+  plotOC = plotGC = NULL
+  if(requireNamespace("ggplot2", quietly = TRUE)){
+    plotOC = .plot_operating_curve(OC.fit, anno)
+    plotGC = .plot_growth_curve(par, GC.fit)
+  }else{
+    message("Package ggplot2 is not installed: the figures are NULL; the operating curve data are in OC.fit.")
+  }
 
   return(list(OC.fig = plotOC, GC.fig = plotGC,
               parameter = list(alpha = par$alpha, beta = par$beta, gamma = par$gamma),

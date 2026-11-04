@@ -1,4 +1,61 @@
 url: https://github.markou.xyz/TSDFGS/
+
 template:
   bootstrap: 5
+  light-switch: true
+  bslib:
+    primary: "#0072B2"
+    # System fonts only, so the site builds offline and loads fast.
+    base_font: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+    heading_font: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+    code_font: "SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
+    border-radius: "0.4rem"
+  opengraph:
+    twitter:
+      creator: "@oumarkme"
+      card: summary
 
+development:
+  mode: auto
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search, github, lightswitch]
+  components:
+    articles:
+      text: Articles
+      menu:
+        - text: "Getting started"
+          href: articles/getting-started.html
+        - text: "Choosing a criterion"
+          href: articles/criteria.html
+        - text: "How the scores are computed"
+          href: articles/methods.html
+        - text: -------
+        - text: "Moving from v2 to v3"
+          href: articles/migrating-from-v2.html
+
+home:
+  title: "TSDFGS: training set determination for genomic selection"
+  description: >
+    Choose which individuals to phenotype, and how many, for a genomic prediction model.
+    Implements the r-score of Ou & Liao (2019) with PEV and CD, in fast C++.
+  sidebar:
+    structure: [links, license, citation, authors, dev]
+
+reference:
+  - title: "Find the training set"
+    desc: "The main function. It searches the candidates for the training set with the best criterion value."
+    contents: [optTrain]
+  - title: "Find the training set size"
+    desc: "Simulate r-scores for several sizes and fit the operating curve."
+    contents: [SSDFGS, FGCM, nt2r]
+  - title: "Score a given training set"
+    desc: "Criterion values of a training set against a test set."
+    contents: [r_score, pev_score, cd_score]
+  - title: "Example data"
+    desc: "Rice genotype principal components (Zhao et al., 2011) and sub-population labels."
+    contents: [geno, subpop]
+  - title: "Package"
+    contents: [TSDFGS-package]

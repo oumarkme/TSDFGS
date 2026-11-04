@@ -1,0 +1,17 @@
+name: TSDFGS
+channels:
+    - conda-forge
+dependencies:
+    - conda-forge::r-base=4.4.3
+    - conda-forge::r-rcpp=1.1.2
+    - conda-forge::r-rcppeigen=0.3.4.0.2
+    - conda-forge::r-dplyr=1.2.1
+    - conda-forge::r-ggplot2=4.0.3
+    - conda-forge::r-latex2exp=0.9.8
+    - conda-forge::r-testthat=3.3.2
+    - conda-forge::r-devtools=2.5.2
+    - conda-forge::r-roxygen2=8.1.0
+    - conda-forge::r-pkgdown=2.2.1
+    - conda-forge::gcc_linux-64=16.2.0
+    - conda-forge::gxx_linux-64=16.2.0
+    - conda-forge::make=4.4.1

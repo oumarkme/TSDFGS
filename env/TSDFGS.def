@@ -1,0 +1,51 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+%labels
+    Author Jen-Hsiang Ou
+    Image TSDFGS
+    Description Build, test, and run the TSDFGS R package (R, Rcpp, RcppEigen, C++ compiler)
+    Micromamba 2.5.0-2
+
+%files
+    TSDFGS.yml /opt/TSDFGS.yml
+
+%post
+    set -eu
+    export DEBIAN_FRONTEND=noninteractive
+    export MAMBA_ROOT_PREFIX=/opt/conda
+    apt-get update
+    apt-get install -y --no-install-recommends ca-certificates curl bzip2
+    curl -fsSL https://github.com/mamba-org/micromamba-releases/releases/download/2.5.0-2/micromamba-linux-64 \
+        -o /usr/local/bin/micromamba
+    chmod +x /usr/local/bin/micromamba
+    micromamba create -y -f /opt/TSDFGS.yml
+    # Record the installed package list (name, version, build, channel) inside the image.
+    micromamba list -n TSDFGS > /opt/TSDFGS.packages.txt
+    # The package needs a compiler at run time, so the compilers stay; drop caches and static libraries elsewhere.
+    micromamba clean -afy
+    rm -rf /opt/conda/pkgs /opt/TSDFGS.yml
+    find /opt/conda -type d -name '__pycache__' -prune -exec rm -rf {} +
+    rm -rf /opt/conda/envs/TSDFGS/share/doc /opt/conda/envs/TSDFGS/share/man /opt/conda/envs/TSDFGS/share/info
+    apt-get purge -y curl bzip2
+    apt-get autoremove -y
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+%environment
+    export MAMBA_ROOT_PREFIX=/opt/conda
+    export PATH=/opt/conda/envs/TSDFGS/bin:$PATH
+    export LC_ALL=C.UTF-8
+
+%test
+    test -d /opt/conda/envs/TSDFGS/bin
+    test -s /opt/TSDFGS.packages.txt
+    R --version | head -1
+    Rscript -e 'library(Rcpp); library(RcppEigen); library(testthat); library(devtools)'
+    x86_64-conda-linux-gnu-c++ --version | head -1
+
+%help
+    Build, test, and run the TSDFGS R package.
+    Packages and versions: apptainer exec TSDFGS.sif cat /opt/TSDFGS.packages.txt
+    Use: apptainer exec --bind $PWD:/work --pwd /work env/TSDFGS.sif Rscript -e 'devtools::test()'
+    Pinned list: env/TSDFGS.yml in the project.

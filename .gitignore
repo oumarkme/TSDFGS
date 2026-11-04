@@ -1,1 +1,6 @@
 .Rproj.user
+*.sif
+env/*.log
+*.o
+*.so
+*.dll

@@ -8,3 +8,11 @@
 ^pkgdown$
 ^LICENSE\.md$
 ^\.github$
+^env$
+^update_plan\.md$
+^\.Rhistory$
+^tests/testthat/_snaps$
+^bench$
+^vignettes/articles$
+^environment\.yml$
+^\.dockerignore$
