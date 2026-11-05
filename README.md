@@ -166,6 +166,10 @@ Milliseconds per iteration of `optTrain()` (rice principal components, n.train =
 | 404 | PEV, untargeted, n=100 | 27.816 | 0.831 | 33.5x |
 | 404 | r-score, untargeted, n=100 | 17.701 | 1.319 | 13.4x |
 
+**Speed with 50 cores.** We ran 200 independent r-score searches (untargeted, 100 of 404 rice accessions, 50 principal components) on 50 cores, with TSDFGS 1.0, 2.4.2, and 3.0.0. Versions 1.0 and 2.4.2 have no multithreading, so they ran as 50 forked processes (`parallel::mclapply`). Each violin shows the time of the 200 searches; the white dot is the median. The median search took 5.07 s with version 1.0, 5.01 s with 2.4.2, and 0.29 s with 3.0.0 (17.6 times faster than 1.0). The whole job took 29.1 s, 29.5 s, and 1.9 s with the same forking, and 1.5 s with the OpenMP threads of 3.0.0 (19.6 times faster than 1.0). The spread within a violin comes from the stopping rule, which ends each search after a different number of iterations.
+
+![Time per search of 200 r-score searches on 50 cores. Medians: 5.07 s (v1.0), 5.01 s (v2.4.2), 0.29 s (v3.0.0).](man/figures/speed-50-cores.jpeg)
+
 **Parallel simulation.** `SSDFGS()`, `FGCM()`, and `nt2r()` run their independent searches with OpenMP when you set `multi.threads = TRUE` or `threads = n`. On a Linux server limited to 50 threads (100 searches, 404 rice accessions, 50 PCs, wall time):
 
 | Method | Threads | Seconds | Speed-up |
