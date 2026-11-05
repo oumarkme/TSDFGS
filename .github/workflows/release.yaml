@@ -30,7 +30,7 @@ jobs:
       - name: Build the source package
         run: R CMD build --no-manual .
 
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           files: TSDFGS_*.tar.gz
           generate_release_notes: true
