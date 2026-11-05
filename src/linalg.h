@@ -43,6 +43,10 @@ class SpdSolver {
   }
   // Returns (G + lambda I)^-1 B.
   Mat Solve(const Mat& b) const { return llt_.solve(b); }
+  // Returns L^-1 B, where L L' = G + lambda I.
+  Mat LSolve(const Mat& b) const { return llt_.matrixL().solve(b); }
+  // log det(G + lambda I) = 2 sum(log diag(L)).
+  double LogDet() const { return 2.0 * llt_.matrixL().toDenseMatrix().diagonal().array().log().sum(); }
 
  private:
   Eigen::LLT<Mat> llt_;

@@ -1,0 +1,55 @@
+---
+title: "Avg_GRM"
+description: "The mean genomic relationship between the training set and the target."
+---
+
+The mean genomic relationship between the training set and the target.
+
+| | |
+|---|---|
+| Type | Relationship |
+| Direction | Larger is better |
+| Uses a test set | yes; without a test set, all candidates |
+| Score a given set | `avg_grm_score()` |
+| Search with it | `optTrain(method = "AvgGRM")` |
+
+## Definition
+
+$\mathrm{Avg\_GRM} = \mathbf{1}_n' G_{TP} \mathbf{1}_{n_P}/(n\,n_P)$ with $G = XX'/p$. Without a test set, the target is the whole candidate set.
+
+## Use in TSDFGS
+
+```{r, eval = TRUE}
+library(TSDFGS)
+data(geno)
+avg_grm_score(geno[1:50, ], geno[51:100, ])
+```
+
+```{r, eval = TRUE}
+fit <- optTrain(geno, cand = 1:404, n.train = 50, method = "AvgGRM",
+                 min.iter = 300, console = FALSE, seed = 1)
+fit$OPTtrain
+
+# targeted: the test set is known
+fit2 <- optTrain(geno, cand = 1:300, n.train = 50, test = 301:404,
+                  method = "AvgGRM", min.iter = 300, console = FALSE, seed = 1)
+fit2$OPTtrain
+```
+
+The search is a random-start exchange (hill-climbing) search; see [How the scores are computed](methods.html). Use `min.iter` larger than 300 on real data and check `fit$converged`.
+
+## Original work
+
+Fernández-González, J., Akdemir, D., & Isidro y Sánchez, J. (2023). A comparison of methods for training population optimization in genomic selection. *Theoretical and Applied Genetics, 136*, 30. <https://doi.org/10.1007/s00122-023-04265-6>
+
+**Repository or website of the original authors:** Code of Fernández-González et al. (2023): [github.com/TheRocinante-lab/Publications](https://github.com/TheRocinante-lab/Publications/tree/main/2022/Fernandez-Gonzalez_et_al_2022_Comparison). Package TrainSel: [github.com/TheRocinante-lab/TrainSel](https://github.com/TheRocinante-lab/TrainSel).
+
+## License review
+
+Formulas and algorithms are ideas and methods, which copyright does not protect. Where an original package is under a GPL license, we read it to check our results and credit it; TSDFGS is [GPL-3](https://github.com/oumarkme/TSDFGS/blob/main/LICENSE.md), which is compatible with GPL-3 and GPL (>= 3) code. This is our reading of the public record, not legal advice; see the [license review](criteria-license-review.html).
+
+* **Original software:** the repository of Fernández-González et al. (2023) has no LICENSE file, and TrainSel carries an all-rights-reserved license with a patent notice. We did not read or copy either; the definition comes from the open-access article.
+* **Article license:** CC BY 4.0.
+* **Verdict:** included, written from the article.
+
+Reviewed 2026-11-04. [All criteria and the ones left out](criteria-license-review.html).

@@ -1,0 +1,33 @@
+---
+title: "License review of the criteria"
+description: "Which criteria TSDFGS includes, which it leaves out, and why."
+---
+
+TSDFGS is released under GPL (>= 3). For each criterion we checked who published it, where the original code lives, under what license, and whether a patent notice applies. This is our reading of the public record, not legal advice. Reviewed 2026-11-04.
+
+## Rules we applied
+
+1. Formulas and algorithms are ideas and methods; copyright does not protect them. We implement every criterion from the published definition in our own C++ (RcppEigen).
+2. We read code only when its license is GPL-3 or GPL (>= 3), as for STPGA (GPL-3) and TSODBG (GPL >= 3). We used it to check our numbers and did not copy code; no line of TSDFGS comes from these packages. Credit goes to their authors on each page.
+3. We did not read or copy code without a license or under restrictive terms.
+4. We cite the article for each criterion and link the authors' repository or website.
+
+## Sources
+
+| Source | License | What we did |
+|---|---|---|
+| STPGA (Akdemir et al.) | GPL-3 | Read; compared numerically (PEV, CD, A-, D-, E-optimality, PEVmax, G-optimality, CDmean) |
+| TSODBG (Chen et al., 2024) | GPL (>= 3) | Read; compared (MSPE, CDmean(v2), GVoverall, GVaverage) |
+| TrainSel (Akdemir et al.) | All rights reserved; says concepts may be covered by patents | Not read, not used |
+| Code of Fernández-González et al. (2023) | No LICENSE file | Not read, not used; definitions from the open-access article |
+| Core Hunter (De Beukelaer et al.) | MIT | Not used; core-collection selection is a different task |
+
+## Left out
+
+* **TrainSel algorithms**: license and patent notice above.
+* **Core-collection measures** (Core Hunter: entry-to-nearest-entry, allelic richness): they select a core collection, not a training set for prediction.
+* **Criteria without a published closed-form definition we could verify**, for example uniform coverage and FURS clustering. They may be added later.
+
+## Article licenses
+
+Fernández-González et al. (2023), Akdemir et al. (2015), and Akdemir and Isidro-Sánchez (2019) are open access. Chen et al. (2024) is CC BY-NC-ND 4.0. Rincent et al. (2012) is in CHORUS public access. We cite them and do not reproduce text or figures.

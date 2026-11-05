@@ -7,29 +7,50 @@
 # Input checks that v2.4.2 did not make; they only turn later cryptic errors into clear ones.
 .check_optTrain_input = function(geno, cand, n.train, test){
   if(!is.numeric(geno)) stop("geno must be a numeric matrix.")
-  if(anyNA(geno)) stop("geno must not contain missing values.")
-  if(length(n.train) != 1 || n.train < 2) stop("n.train must be a single integer of at least 2.")
-  if(any(!cand %in% seq_len(nrow(geno)))) stop("cand must be row numbers of geno.")
+  if(anyNA(geno) || any(!is.finite(geno))) stop("geno must not contain missing or infinite values.")
+  if(length(n.train) != 1 || !is.numeric(n.train) || is.na(n.train) || n.train < 2 || n.train != round(n.train)){
+    stop("n.train must be a single whole number of at least 2.")
+  }
+  if(length(cand) < 1 || !is.numeric(cand) || anyNA(cand) || any(!cand %in% seq_len(nrow(geno)))){
+    stop("cand must be row numbers of geno.")
+  }
+  if(anyDuplicated(cand)) stop("cand must not contain duplicated row numbers.")
   if(n.train > length(cand)) stop("n.train is larger than the number of candidates.")
-  if(!is.null(test) && any(!test %in% seq_len(nrow(geno)))) stop("test must be row numbers of geno.")
+  if(!is.null(test)){
+    if(!is.numeric(test) || anyNA(test) || any(!test %in% seq_len(nrow(geno)))) stop("test must be row numbers of geno.")
+    if(length(test) < 2) stop("test must contain at least 2 individuals.")
+  }
+  invisible(TRUE)
+}
+
+# min.iter must be a single finite number of at least 1 (NA or Inf would never stop the search).
+.check_min_iter = function(min.iter){
+  if(length(min.iter) != 1 || !is.numeric(min.iter) || !is.finite(min.iter) || min.iter < 1){
+    stop("min.iter must be a single finite number of at least 1.")
+  }
   invisible(TRUE)
 }
 
 # Criterion code used by the C++ code (0: r-score, 1: PEV, 2: CD) and optimization direction.
 # Option TSDFGS.legacy_float = TRUE gives the single-precision scores of v2.4.2, which
 # makes a seed return the v2.4.2 training set (used by the regression tests).
-.criterion_spec = function(method){
-  list(id = switch(method, rScore = 0L, PEV = 1L, CD = 2L),
-       maximize = method != "PEV",
+.criterion_spec = function(method, lambda = NULL){
+  row = .criteria_registry[.criteria_registry$method == method, ]
+  list(id = row$id, maximize = row$maximize, set_only = row$set_only, lambda = .lambda_value(lambda),
        legacy = isTRUE(getOption("TSDFGS.legacy_float", FALSE)))
 }
 
 .score_rows = function(spec, geno, train, test){
-  score_rows(spec$id, geno, as.integer(train), as.integer(test), spec$legacy)
+  value = score_rows(spec$id, geno, as.integer(train), as.integer(test), spec$lambda, spec$legacy)
+  if(!is.finite(value)){
+    stop("The score is not finite; check that the test set has at least 2 individuals and that geno has no constant rows or columns.")
+  }
+  value
 }
 
 # Default minimum iterations, in units of sqrt(candidates x training size). Same values as v2.4.2.
 .default_iter_factor = function(pop, target, method){
+  if(!method %in% c("rScore", "PEV", "CD")) return(50)  # criteria added in v3
   tab = list(
     npop_untarget = c(PEV = 33, CD = 65, rScore = 80),
     npop_target   = c(PEV = 65, CD = 40, rScore = 40),
@@ -100,7 +121,7 @@
                         if(target) as.integer(test) else NULL,
                         if(pop) as.integer(group) else NULL, as.integer(n.groups),
                         spec$id, spec$maximize, as.numeric(min.iter), tol, window,
-                        spec$legacy, console)
+                        spec$lambda, spec$legacy, console)
   list(sol = fit$sol, top = fit$top, iter = fit$iter, n.iter = fit$n.iter, converged = fit$converged)
 }
 
@@ -113,6 +134,12 @@
   if(length(subpop) != nrow(geno)) stop("With test, subpop must have one entry per row of geno.")
   pr = .pop_ratio(subpop, n)
   pops = pr$pops
+  n.avail = vapply(pops, function(g) sum(subpop[cand] == g), numeric(1))
+  if(any(n.avail < pr$ratio)){
+    bad = pops[n.avail < pr$ratio]
+    stop("Sub-population(s) ", paste(bad, collapse = ", "), " have fewer candidates than the training individuals they need; ",
+         "subpop must give the group of every row of geno, and each group needs enough candidates.")
+  }
   sol = c()
   for(i in seq_along(pops)){
     sol = c(sol, .sampleK(cand[subpop[cand] == pops[i]], pr$ratio[i]))
@@ -130,6 +157,9 @@
   while(status == 0L){
     p = sample.int(length(pops), 1L, prob = pr$ratio)
     pool = which(subpop[cand] == pops[p])
+    # A new member must not already be in the training set. (v2.4.2 could draw a current member,
+    # which duplicated it; the legacy option keeps that draw so that the v2.4.2 results are kept.)
+    if(!spec$legacy) pool = pool[!cand[pool] %in% sol]
     slots = which(subpop[sol] == pops[p])
     new.sol = sol
     if(length(pool) > 0 && length(slots) > 0){
@@ -153,17 +183,18 @@
 
 # Genetic algorithm of the un-structured targeted routes for PEV and r-score: 30 solutions,
 # 3 replaced per generation, 3% of each solution mutated.
-.search_ga = function(geno, cand, n, test, spec, min.iter, tol, console){
+.search_ga = function(geno, cand, n, test, spec, min.iter, tol, console, threads = 1L){
   maximize = spec$maximize
   window = sqrt(length(cand) * n) * 5
   npop = 30L
   k.mut = ceiling(n * .03)
-  score_of = function(s) .score_rows(spec, geno, s, test)
-
+  # More columns than training rows: the dual form needs only the Gram matrix of all rows,
+  # built once here.
+  gram = if(spec$id <= 2L && ncol(geno) > n && nrow(geno) <= 5000) tcrossprod(geno) else NULL
   sol = matrix(NA_integer_, n, npop)
   for(i in seq_len(npop)) sol[, i] = .sampleK(cand, n)
-  score = rep(NA_real_, npop)
-  for(i in seq_len(npop)) score[i] = score_of(sol[, i])
+  storage.mode(sol) = "integer"
+  score = score_many(spec$id, geno, sol, as.integer(test), spec$lambda, spec$legacy, threads, gram)
 
   best = if(maximize) max else min
   maxlen = ceiling(min.iter * 2) + 3
@@ -185,20 +216,27 @@
       par = sample(seq_len(npop)[-del], 2)
       sol[, del[i]] = .sampleK(unique(c(sol[, par[1]], sol[, par[2]])), n)
     }
+    # The candidate sets are drawn first, in the order of v2.4.2, and scored together.
+    trial = sol
     for(i in seq_len(npop)){
-      new.sol = sol[, i]
       if(i %in% del){
         value = .sampleK(cand[!cand %in% sol[, i]], k.mut)
         sol[sample.int(n, k.mut), i] = value
-        score[i] = score_of(sol[, i])
+        trial[, i] = sol[, i]
       }else{
+        new.sol = sol[, i]
         value = .sampleK(cand[!cand %in% new.sol], k.mut)
         new.sol[sample.int(n, k.mut)] = value
-        new.score = score_of(new.sol)
-        if((maximize && new.score > score[i]) || (!maximize && new.score < score[i])){
-          sol[, i] = new.sol
-          score[i] = new.score
-        }
+        trial[, i] = new.sol
+      }
+    }
+    trial.score = score_many(spec$id, geno, trial, as.integer(test), spec$lambda, spec$legacy, threads, gram)
+    for(i in seq_len(npop)){
+      if(i %in% del){
+        score[i] = trial.score[i]
+      }else if((maximize && trial.score[i] > score[i]) || (!maximize && trial.score[i] < score[i])){
+        sol[, i] = trial[, i]
+        score[i] = trial.score[i]
       }
     }
     iter.score[npop + iter] = mean(score)

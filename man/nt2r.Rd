@@ -4,7 +4,7 @@
 \alias{nt2r}
 \title{Simulate r-scores of each training set size}
 \usage{
-nt2r(geno, nt, n_iter = 30, multi.threads = FALSE)
+nt2r(geno, nt, n_iter = 30, multi.threads = FALSE, threads = NULL)
 }
 \arguments{
 \item{geno}{A numeric dataframe of genotype, column represent sites (genotype coding as 1, 0, -1)}
@@ -13,7 +13,9 @@ nt2r(geno, nt, n_iter = 30, multi.threads = FALSE)
 
 \item{n_iter}{Times of iteration. (default = 30)}
 
-\item{multi.threads}{Default: FALSE. Multi-thread function is only avalyble for mac or linux systems.}
+\item{multi.threads}{Default: FALSE. If TRUE, the iterations run in parallel (OpenMP, any system with OpenMP support) on 75\% of the available processors (limited by \code{OMP_NUM_THREADS}), or half of them when there are 4 or fewer.}
+
+\item{threads}{Default: NULL. The number of threads; it overrides \code{multi.threads}. The parallel iterations use their own random generators, seeded from R's generator. The values then depend on \code{set.seed()} but not on \code{threads}, and they are not those of the serial run with the same seed.}
 }
 \value{
 A vector of r-scores of each iteration

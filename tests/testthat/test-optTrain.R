@@ -78,5 +78,5 @@ test_that("input errors are clear", {
   expect_error(optTrain(fx$g, c(1:100, 500), 20, console = FALSE), "row numbers of geno")
   expect_error(optTrain(fx$g, 1:100, 20, subpop = fx$sp[1:50], console = FALSE), "Input data is not correct")
   g <- fx$g; g[1, 1] <- NA
-  expect_error(optTrain(g, 1:100, 20, console = FALSE), "missing values")
+  expect_error(optTrain(g, 1:100, 20, console = FALSE), "missing or infinite values")
 })

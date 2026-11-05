@@ -1,20 +1,24 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# Builds the project website (pkgdown) and publishes it to the gh-pages branch from main.
+# Pull requests only build it, so a broken article is found before the merge.
+name: pkgdown
+
 on:
   push:
-    branches: [main, master, v3.0-alpha]
+    branches: [main, master]
   pull_request:
-    branches: [main, master, v3.0-alpha]
+    branches: [main, master]
   release:
     types: [published]
   workflow_dispatch:
 
-name: pkgdown
+permissions:
+  contents: read
 
 jobs:
   pkgdown:
     runs-on: ubuntu-latest
-    # Only restrict concurrency for non-PR jobs
+    timeout-minutes: 45
+    # Only one deployment at a time; pull request builds are independent.
     concurrency:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
@@ -22,7 +26,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -39,11 +43,17 @@ jobs:
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
-      - name: Deploy to GitHub pages 🚀
-        # The v3.0-alpha branch is built to test the site but not published.
-        if: github.event_name != 'pull_request' && github.ref != 'refs/heads/v3.0-alpha'
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+      - name: Check that every page has been built
+        run: |
+          test -s docs/index.html
+          test -s docs/articles/criteria.html
+          test -s docs/reference/optTrain.html
+          test -s docs/news/index.html
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          clean: false
+          clean: true
           branch: gh-pages
           folder: docs

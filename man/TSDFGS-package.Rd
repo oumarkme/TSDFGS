@@ -11,7 +11,9 @@ We propose an optimality criterion to determine the required training set, r-sco
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://oumarkme.github.io/TSDFGS}
+  \item \url{https://www.oumark.net/TSDFGS}
+  \item \url{https://github.com/oumarkme/TSDFGS}
+  \item Report bugs at \url{https://github.com/oumarkme/TSDFGS/issues}
 }
 
 }

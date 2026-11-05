@@ -4,7 +4,7 @@
 \alias{FGCM}
 \title{Fit logistic growth curve model}
 \usage{
-FGCM(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE)
+FGCM(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE, threads = NULL)
 }
 \arguments{
 \item{geno}{Genotype information saved as a dataframe. Columns represent variants (SNPs or PCs).}
@@ -13,7 +13,9 @@ FGCM(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE)
 
 \item{n_iter}{Number of simulation of each training set size. Automatically gave a suitable number by default.}
 
-\item{multi.threads}{Default: FALSE. Multi-thread function is only avalyble for mac or linux systems.}
+\item{multi.threads}{Default: FALSE. If TRUE, the simulations run in parallel (OpenMP) on 75\% of the available processors (limited by \code{OMP_NUM_THREADS}), or half of them when there are 4 or fewer.}
+
+\item{threads}{Default: NULL. The number of threads; it overrides \code{multi.threads}. See \code{\link{nt2r}} for the random numbers of the parallel run.}
 }
 \value{
 Estimation of parameters.

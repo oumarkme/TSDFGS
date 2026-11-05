@@ -4,7 +4,7 @@
 \alias{SSDFGS}
 \title{Sample size determination for genomic selection}
 \usage{
-SSDFGS(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE)
+SSDFGS(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE, threads = NULL)
 }
 \arguments{
 \item{geno}{A numeric data frame carried genotype information (column: PCs, row: sample)}
@@ -13,7 +13,9 @@ SSDFGS(geno, nt = NULL, n_iter = NULL, multi.threads = FALSE)
 
 \item{n_iter}{Number of iterations for estimating parameters.}
 
-\item{multi.threads}{Default: False. If TRUE, this function will use 75\% of threads if the computer has more than 4 threads. Multi-thread computing is only avalible in mac and linux environments.}
+\item{multi.threads}{Default: FALSE. If TRUE, the simulations run in parallel (OpenMP) on 75\% of the available processors (limited by \code{OMP_NUM_THREADS}), or half of them when there are 4 or fewer.}
+
+\item{threads}{Default: NULL. The number of threads; it overrides \code{multi.threads}. See \code{\link{nt2r}} for the random numbers of the parallel run.}
 }
 \value{
 A list with the operating curve and growth curve figures (OC.fig and GC.fig; ggplot objects, or NULL when the ggplot2 package is not installed), the logistic growth curve parameters, and the operating curve data (OC.fit).

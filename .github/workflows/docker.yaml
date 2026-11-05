@@ -1,14 +1,36 @@
-# Build the image with the tested R and compilers. Push it to the GitHub Container
-# Registry on branch pushes and v* tags; pull requests only build it.
+# Builds the image (R, compilers, and TSDFGS from this commit), tests it, and publishes it to the
+# GitHub Container Registry on main and on v* tags. Pull requests only build and test it.
+#   docker pull ghcr.io/oumarkme/tsdfgs:latest
 name: docker-image
 
 on:
   push:
-    branches: [main, master, v3.0-alpha]
+    branches: [main, master]
     tags: ['v*']
+    paths:
+      - 'R/**'
+      - 'src/**'
+      - 'data/**'
+      - 'DESCRIPTION'
+      - 'NAMESPACE'
+      - 'environment.yml'
+      - 'env/**'
+      - '.dockerignore'
+      - '.github/workflows/docker.yaml'
   pull_request:
-    branches: [main, master, v3.0-alpha]
+    branches: [main, master]
+    paths:
+      - 'R/**'
+      - 'src/**'
+      - 'DESCRIPTION'
+      - 'environment.yml'
+      - 'env/**'
+      - '.github/workflows/docker.yaml'
   workflow_dispatch:
+
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   IMAGE: ghcr.io/oumarkme/tsdfgs
@@ -16,6 +38,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     permissions:
       contents: read
       packages: write
@@ -41,6 +64,8 @@ jobs:
           tags: |
             type=ref,event=branch
             type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,format=short
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build (load into the runner for the smoke test)
@@ -56,7 +81,7 @@ jobs:
       - name: Smoke test
         run: |
           docker run --rm tsdfgs:test R --version | head -1
-          docker run --rm tsdfgs:test Rscript -e 'library(TSDFGS); data(geno); set.seed(1); x <- optTrain(geno, cand = 1:100, n.train = 20, min.iter = 50, console = FALSE); stopifnot(length(x$OPTtrain) == 20)'
+          docker run --rm tsdfgs:test Rscript -e 'library(TSDFGS); data(geno); set.seed(1); x <- optTrain(geno, cand = 1:100, n.train = 20, min.iter = 50, console = FALSE); stopifnot(length(x$OPTtrain) == 20, nrow(criteria()) == 18); cat("TSDFGS", as.character(packageVersion("TSDFGS")), "OK\n")'
 
       - name: Push
         if: github.event_name != 'pull_request'

@@ -4,12 +4,14 @@
 \alias{r_score}
 \title{r-score}
 \usage{
-r_score(X, X0)
+r_score(X, X0, lambda = NULL)
 }
 \arguments{
 \item{X}{A numeric matrix. The training set genotypic information matrix can be given as genotype matrix (coded as -1, 0, 1) or principal component matrix (row: sample; column: marker or PC).}
 
 \item{X0}{A numeric matrix. The test set genotypic information matrix, with the same columns as X.}
+
+\item{lambda}{A positive number, the ridge penalty, or NULL (default) for the default of the criterion (r-score and PEV: 1 / number of columns; CD: 1).}
 }
 \value{
 A number, the r-score.

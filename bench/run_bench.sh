@@ -1,12 +1,11 @@
 #!/bin/bash
-# Run on gs4: installs v2.4.2 and the current source into a private library, then benchmarks.
-# Usage: bench/run_bench_gs4.sh <scratch_dir>  (made with mktemp -d /raid/tmp/TSDFGS.XXXXXX)
-# The v2.4.2 source must be unpacked in <scratch_dir>/old_src (git archive a802b81).
+# Run with Apptainer (env/TSDFGS.sif): installs v2.4.2 and the current source into a private library, then benchmarks.
+# Usage: bench/run_bench.sh <work_dir>  (an empty, writable directory)
+# The v2.4.2 source must be unpacked in <work_dir>/old_src (git archive a802b81).
 set -eu
-export PATH=/home/user/miniforge-pypy3/envs/mark/bin:$PATH
 d=$1
-case "$d" in /raid/tmp/TSDFGS.*) ;; *) echo "bad scratch $d" >&2; exit 2;; esac
-proj=/lab_nas_home_user/Mark/TSDFGS
+[ -d "$d" ] || { echo "d: directory not found: $d" >&2; exit 2; }
+proj=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 export APPTAINER_QUIET=1
 apptainer exec --bind "$d:/scr" --bind "$proj:/proj" --pwd /scr "$proj/env/TSDFGS.sif" bash -c '
   set -e; export TMPDIR=/scr/tmp; mkdir -p $TMPDIR /scr/lib_old /scr/lib_new

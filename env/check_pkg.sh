@@ -1,13 +1,12 @@
 #!/bin/bash
 # Build the source package, run R CMD check --as-cran (no manual: the image has no LaTeX),
-# inside env/TSDFGS.sif. Run on gs4. The pkgdown site is built on wsl (gs4 cannot reach the web).
-# Usage: env/check_pkg.sh <scratch_dir>  (made with mktemp -d /raid/tmp/TSDFGS.XXXXXX)
-# Results: <scratch_dir>/out/TSDFGS.Rcheck/00check.log
+# inside env/TSDFGS.sif (built with env/build_sif.sh). The pkgdown site is built by GitHub Actions.
+# Usage: env/check_pkg.sh <work_dir>  (an empty, writable directory, for example from mktemp -d)
+# Results: <work_dir>/out/TSDFGS.Rcheck/00check.log
 set -eu
-export PATH=/home/user/miniforge-pypy3/envs/mark/bin:$PATH
 d=$1
-case "$d" in /raid/tmp/TSDFGS.*) ;; *) echo "bad scratch $d" >&2; exit 2;; esac
-proj=/lab_nas_home_user/Mark/TSDFGS
+[ -d "$d" ] || { echo "d: directory not found: $d" >&2; exit 2; }
+proj=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 export APPTAINER_QUIET=1
 mkdir -p "$d/out" "$d/tmp"
 apptainer exec --bind "$d:/scr" --bind "$proj:/proj:ro" --pwd /scr/out "$proj/env/TSDFGS.sif" bash -c '

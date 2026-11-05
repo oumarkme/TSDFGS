@@ -1,9 +1,9 @@
 Package: TSDFGS
 Type: Package
 Title: Training Set Determination for Genomic Selection
-Version: 3.0.0.9000
+Version: 3.0.0
 Encoding: UTF-8
-Date: 2026-11-04
+Date: 2026-11-05
 Authors@R: c(
         person("Jen-Hsiang", "Ou", 
             email = "oumark.me@outlook.com", 
@@ -18,14 +18,24 @@ Authors@R: c(
             email = "ctliao@ntu.edu.tw", 
             role = c("aut", "ths"), 
             comment = c(ORCID = "0000-0001-9777-3701")))
-URL: https://oumarkme.github.io/TSDFGS, https://github.markou.xyz/TSDFGS
+URL: https://www.oumark.net/TSDFGS, https://github.com/oumarkme/TSDFGS
+BugReports: https://github.com/oumarkme/TSDFGS/issues
 Depends: R (>= 4.0)
 Maintainer: Jen-Hsiang Ou <oumark.me@outlook.com>
-Description: We propose an optimality criterion to determine the required training set, r-score, which is derived directly from Pearson's correlation between the genomic estimated breeding values and phenotypic values of the test set <doi:10.1007/s00122-019-03387-0>. This package provides two main functions to determine a good training set and its size.
+Description: Finds a training set for genomic selection and the size it needs.
+    The r-score of Ou and Liao (2019) <doi:10.1007/s00122-019-03387-0> is derived
+    from Pearson's correlation between the genomic estimated breeding values and the
+    phenotypic values of the test set. optTrain() searches for a good training set,
+    and SSDFGS() searches for its size. Eighteen criteria are available to score or
+    optimize a training set, among them A-, D-, E- and G-optimality, PEVmax, MSPE,
+    CDmean, CDmax, and genomic relationship criteria (Chen et al. (2024)
+    <doi:10.1007/s00122-024-04766-y>; Fernandez-Gonzalez et al. (2023)
+    <doi:10.1007/s00122-023-04265-6>). The computation uses 'Rcpp' and 'RcppEigen',
+    and independent searches can run on several threads with 'OpenMP'.
 License: GPL (>= 3)
 Imports:
-    parallel,
-    Rcpp
+    Rcpp,
+    stats
 LinkingTo:
     Rcpp,
     RcppEigen

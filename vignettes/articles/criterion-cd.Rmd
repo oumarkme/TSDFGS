@@ -1,0 +1,61 @@
+---
+title: "CD (ridge, PCs)"
+description: "CD is the squared correlation between true and predicted genetic value (reliability)."
+---
+
+CD is the squared correlation between true and predicted genetic value (reliability). The score is the mean CD of the test individuals, computed on PCs.
+
+| | |
+|---|---|
+| Type | Model-based |
+| Direction | Larger is better |
+| Uses a test set | yes |
+| Score a given set | `cd_score()` |
+| Search with it | `optTrain(method = "CD")` |
+
+## Definition
+
+With $B = (X'X + I)^{-1}$ and $x_i$ a test row:
+
+$$\mathrm{CD} = \frac{1}{n_0}\sum_i \frac{x_i' B X'X B x_i}{x_i' x_i}.$$
+
+This equals the CDMEAN2 of STPGA in our tests. For the GBLUP form with contrasts, see [CDmean](criterion-cdmean.html).
+
+## Use in TSDFGS
+
+```{r, eval = TRUE}
+library(TSDFGS)
+data(geno)
+cd_score(geno[1:50, ], geno[51:100, ])
+```
+
+```{r, eval = TRUE}
+fit <- optTrain(geno, cand = 1:404, n.train = 50, method = "CD",
+                 min.iter = 300, console = FALSE, seed = 1)
+fit$OPTtrain
+
+# targeted: the test set is known
+fit2 <- optTrain(geno, cand = 1:300, n.train = 50, test = 301:404,
+                  method = "CD", min.iter = 300, console = FALSE, seed = 1)
+fit2$OPTtrain
+```
+
+The search is a random-start exchange (hill-climbing) search; see [How the scores are computed](methods.html). Use `min.iter` larger than 300 on real data and check `fit$converged`.
+
+## Original work
+
+Laloë, D., Phocas, F., & Ménissier, F. (1996). Considerations on measures of precision and connectedness in mixed linear models of genetic evaluation. *Genetics Selection Evolution, 28*, 359. <https://doi.org/10.1186/1297-9686-28-4-359>
+
+Rincent, R., Laloë, D., Nicolas, S., Altmann, T., Brunel, D., Revilla, P., et al. (2012). Maximizing the reliability of genomic selection by optimizing the calibration set of reference individuals: comparison of methods in two diverse groups of maize inbreds (*Zea mays* L.). *Genetics, 192*, 715-728. <https://doi.org/10.1534/genetics.112.141473>
+
+**Repository or website of the original authors:** R package STPGA by Akdemir and colleagues: [CRAN.R-project.org/package=STPGA](https://CRAN.R-project.org/package=STPGA) (GPL-3).
+
+## License review
+
+Formulas and algorithms are ideas and methods, which copyright does not protect. Where an original package is under a GPL license, we read it to check our results and credit it; TSDFGS is [GPL-3](https://github.com/oumarkme/TSDFGS/blob/main/LICENSE.md), which is compatible with GPL-3 and GPL (>= 3) code. This is our reading of the public record, not legal advice; see the [license review](criteria-license-review.html).
+
+* **Original software:** STPGA, GPL-3; compared, not copied.
+* **Article license:** Laloë et al. (1996) Genetics Selection Evolution; Rincent et al. (2012) CHORUS.
+* **Verdict:** included.
+
+Reviewed 2026-11-04. [All criteria and the ones left out](criteria-license-review.html).

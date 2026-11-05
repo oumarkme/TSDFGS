@@ -1,4 +1,4 @@
-url: https://github.markou.xyz/TSDFGS/
+url: https://www.oumark.net/TSDFGS/
 
 template:
   bootstrap: 5
@@ -20,14 +20,64 @@ development:
 
 navbar:
   structure:
-    left: [intro, reference, articles, news]
+    left: [intro, criteria, reference, articles, news]
     right: [search, github, lightswitch]
   components:
+    criteria:
+      text: Criteria
+      menu:
+        - text: "Overview and choice"
+          href: articles/criteria.html
+        - text: "License review"
+          href: articles/criteria-license-review.html
+        - text: "Model-based"
+        - text: "r-score"
+          href: articles/criterion-rscore.html
+        - text: "PEVmean (ridge, PCs)"
+          href: articles/criterion-pev.html
+        - text: "CD (ridge, PCs)"
+          href: articles/criterion-cd.html
+        - text: "CDmax (ridge, PCs)"
+          href: articles/criterion-cdmax.html
+        - text: "PEVmax"
+          href: articles/criterion-pevmax.html
+        - text: "MSPE of ridge regression"
+          href: articles/criterion-mspe.html
+        - text: "CDmean"
+          href: articles/criterion-cdmean.html
+        - text: "CDmean(v2)"
+          href: articles/criterion-cdmean2.html
+        - text: "Optimal design"
+        - text: "A-optimality"
+          href: articles/criterion-aopt.html
+        - text: "D-optimality"
+          href: articles/criterion-dopt.html
+        - text: "E-optimality"
+          href: articles/criterion-eopt.html
+        - text: "G-optimality (GOPTPEV)"
+          href: articles/criterion-gopt.html
+        - text: "Genomic variation"
+        - text: "GVoverall"
+          href: articles/criterion-gvoverall.html
+        - text: "GVaverage"
+          href: articles/criterion-gvaverage.html
+        - text: "Relationship"
+        - text: "Avg_GRM"
+          href: articles/criterion-avggrm.html
+        - text: "Avg_GRM_self"
+          href: articles/criterion-avggrmself.html
+        - text: "Avg_GRM_MinMax"
+          href: articles/criterion-avggrmminmax.html
+        - text: "Clustering"
+        - text: "Partitioning around medoids (PAM)"
+          href: articles/criterion-pam.html
     articles:
       text: Articles
       menu:
         - text: "Getting started"
           href: articles/getting-started.html
+        - text: "Installation and environments"
+          href: articles/installation.html
         - text: "Choosing a criterion"
           href: articles/criteria.html
         - text: "How the scores are computed"
@@ -40,7 +90,7 @@ home:
   title: "TSDFGS: training set determination for genomic selection"
   description: >
     Choose which individuals to phenotype, and how many, for a genomic prediction model.
-    Implements the r-score of Ou & Liao (2019) with PEV and CD, in fast C++.
+    Implements the r-score of Ou & Liao (2019) and 17 other training set criteria, in fast C++.
   sidebar:
     structure: [links, license, citation, authors, dev]
 
@@ -51,9 +101,16 @@ reference:
   - title: "Find the training set size"
     desc: "Simulate r-scores for several sizes and fit the operating curve."
     contents: [SSDFGS, FGCM, nt2r]
+  - title: "Criteria: list"
+    desc: "All criteria, with the name to give to optTrain(method = )."
+    contents: [criteria]
   - title: "Score a given training set"
-    desc: "Criterion values of a training set against a test set."
-    contents: [r_score, pev_score, cd_score]
+    desc: "Criterion values of a training set. One page per criterion under Criteria in the top bar."
+    contents: [r_score, pev_score, cd_score, pevmax_score, mspe_score, cdmean_score, cdmean2_score, cdmax_score, pam_score]
+  - title: "Optimal design criteria"
+    contents: [aopt_score, dopt_score, eopt_score, gopt_score]
+  - title: "Genomic variation and relationship criteria"
+    contents: [gv_overall_score, gv_average_score, avg_grm_score, avg_grm_self_score, avg_grm_minmax_score]
   - title: "Example data"
     desc: "Rice genotype principal components (Zhao et al., 2011) and sub-population labels."
     contents: [geno, subpop]

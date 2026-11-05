@@ -1,0 +1,52 @@
+---
+title: "A-optimality"
+description: "A-optimality minimizes the average variance of the ridge coefficients."
+---
+
+A-optimality minimizes the average variance of the ridge coefficients. It uses the training set alone.
+
+| | |
+|---|---|
+| Type | Optimal design |
+| Direction | Smaller is better |
+| Uses a test set | no (a test set given to `optTrain()` is ignored) |
+| Score a given set | `aopt_score()` |
+| Search with it | `optTrain(method = "AOpt")` |
+
+## Definition
+
+With $\lambda = 1/p$: $\mathrm{A} = \mathrm{tr}[(X'X + \lambda I)^{-1}]$. Akdemir and Isidro-Sánchez (2019) allow a contrast matrix; TSDFGS uses the identity. For $p > n$ the $p - n$ zero eigenvalues each add $1/\lambda$.
+
+## Use in TSDFGS
+
+```{r, eval = TRUE}
+library(TSDFGS)
+data(geno)
+aopt_score(geno[1:50, ])
+```
+
+```{r, eval = TRUE}
+fit <- optTrain(geno, cand = 1:404, n.train = 50, method = "AOpt",
+                 min.iter = 300, console = FALSE, seed = 1)
+fit$OPTtrain
+```
+
+The search is a random-start exchange (hill-climbing) search; see [How the scores are computed](methods.html). Use `min.iter` larger than 300 on real data and check `fit$converged`.
+
+## Original work
+
+Akdemir, D., & Isidro-Sánchez, J. (2019). Design of training populations for selective phenotyping in genomic prediction. *Scientific Reports, 9*, 1446. <https://doi.org/10.1038/s41598-018-38081-6>
+
+Akdemir, D., Sanchez, J. I., & Jannink, J.-L. (2015). Optimization of genomic selection training populations with a genetic algorithm. *Genetics Selection Evolution, 47*, 38. <https://doi.org/10.1186/s12711-015-0116-6>
+
+**Repository or website of the original authors:** R package STPGA by Akdemir and colleagues: [CRAN.R-project.org/package=STPGA](https://CRAN.R-project.org/package=STPGA) (GPL-3).
+
+## License review
+
+Formulas and algorithms are ideas and methods, which copyright does not protect. Where an original package is under a GPL license, we read it to check our results and credit it; TSDFGS is [GPL-3](https://github.com/oumarkme/TSDFGS/blob/main/LICENSE.md), which is compatible with GPL-3 and GPL (>= 3) code. This is our reading of the public record, not legal advice; see the [license review](criteria-license-review.html).
+
+* **Original software:** STPGA, GPL-3 (AOPT); compared, not copied. STPGA reports the trace divided by $p$, which does not change the optimum.
+* **Article license:** Akdemir and Isidro-Sánchez (2019) open access (Scientific Reports).
+* **Verdict:** included.
+
+Reviewed 2026-11-04. [All criteria and the ones left out](criteria-license-review.html).

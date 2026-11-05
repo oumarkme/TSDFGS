@@ -1,0 +1,56 @@
+---
+title: "Partitioning around medoids (PAM)"
+description: "The k-medoids cost: the training individuals act as medoids of the target."
+---
+
+The k-medoids cost: the training individuals act as medoids of the target.
+
+| | |
+|---|---|
+| Type | Clustering |
+| Direction | Smaller is better |
+| Uses a test set | yes |
+| Score a given set | `pam_score()` |
+| Search with it | `optTrain(method = "PAM")` |
+
+## Definition
+
+$\sum_i \min_{j \in T}\lVert x_{0i} - x_j\rVert$ over target rows $i$. The classical algorithm of Kaufman and Rousseeuw (1990) searches medoids freely; here the search is the exchange search of `optTrain()`.
+
+## Use in TSDFGS
+
+```{r, eval = TRUE}
+library(TSDFGS)
+data(geno)
+pam_score(geno[1:50, ], geno[51:100, ])
+```
+
+```{r, eval = TRUE}
+fit <- optTrain(geno, cand = 1:404, n.train = 50, method = "PAM",
+                 min.iter = 300, console = FALSE, seed = 1)
+fit$OPTtrain
+
+# targeted: the test set is known
+fit2 <- optTrain(geno, cand = 1:300, n.train = 50, test = 301:404,
+                  method = "PAM", min.iter = 300, console = FALSE, seed = 1)
+fit2$OPTtrain
+```
+
+The search is a random-start exchange (hill-climbing) search; see [How the scores are computed](methods.html). Use `min.iter` larger than 300 on real data and check `fit$converged`.
+
+## Original work
+
+Kaufman, L., & Rousseeuw, P. J. (1990). *Finding groups in data: an introduction to cluster analysis.* Wiley. <https://doi.org/10.1002/9780470316801>
+
+Fernández-González, J., Akdemir, D., & Isidro y Sánchez, J. (2023). A comparison of methods for training population optimization in genomic selection. *Theoretical and Applied Genetics, 136*, 30. <https://doi.org/10.1007/s00122-023-04265-6>
+
+**Repository or website of the original authors:** Algorithm in textbooks and the R package `cluster` (GPL >= 2).
+
+## License review
+
+Formulas and algorithms are ideas and methods, which copyright does not protect. Where an original package is under a GPL license, we read it to check our results and credit it; TSDFGS is [GPL-3](https://github.com/oumarkme/TSDFGS/blob/main/LICENSE.md), which is compatible with GPL-3 and GPL (>= 3) code. This is our reading of the public record, not legal advice; see the [license review](criteria-license-review.html).
+
+* **Original software:** none required; the cost is a textbook definition.
+* **Verdict:** included.
+
+Reviewed 2026-11-04. [All criteria and the ones left out](criteria-license-review.html).

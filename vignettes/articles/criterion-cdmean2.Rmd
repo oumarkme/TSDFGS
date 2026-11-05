@@ -1,0 +1,55 @@
+---
+title: "CDmean(v2)"
+description: "The heuristic form of CDmean from Chen et al."
+---
+
+The heuristic form of CDmean from Chen et al. (2024): the contrast is replaced by the individual itself.
+
+| | |
+|---|---|
+| Type | Model-based |
+| Direction | Larger is better |
+| Uses a test set | yes; without a test set, all candidates |
+| Score a given set | `cdmean2_score()` |
+| Search with it | `optTrain(method = "CDmeanV2")` |
+
+## Definition
+
+Mean of $\mathrm{diag}(K_{PT}WK_{TP})/\mathrm{diag}(K_{PP})$. TSODBG sums instead of averaging; the optimum is the same for a fixed target.
+
+## Use in TSDFGS
+
+```{r, eval = TRUE}
+library(TSDFGS)
+data(geno)
+cdmean2_score(geno[1:50, ], geno[51:100, ])
+```
+
+```{r, eval = TRUE}
+fit <- optTrain(geno, cand = 1:404, n.train = 50, method = "CDmeanV2",
+                 min.iter = 300, console = FALSE, seed = 1)
+fit$OPTtrain
+
+# targeted: the test set is known
+fit2 <- optTrain(geno, cand = 1:300, n.train = 50, test = 301:404,
+                  method = "CDmeanV2", min.iter = 300, console = FALSE, seed = 1)
+fit2$OPTtrain
+```
+
+The search is a random-start exchange (hill-climbing) search; see [How the scores are computed](methods.html). Use `min.iter` larger than 300 on real data and check `fit$converged`.
+
+## Original work
+
+Chen, S.-P., Sung, W.-H., & Liao, C.-T. (2024). Constructing training sets for genomic selection to identify superior genotypes in candidate populations. *Theoretical and Applied Genetics, 137*, 270. <https://doi.org/10.1007/s00122-024-04766-y>
+
+**Repository or website of the original authors:** R package TSODBG of Chen et al. (2024): [github.com/spcspin/TSODBG](https://github.com/spcspin/TSODBG) (GPL >= 3).
+
+## License review
+
+Formulas and algorithms are ideas and methods, which copyright does not protect. Where an original package is under a GPL license, we read it to check our results and credit it; TSDFGS is [GPL-3](https://github.com/oumarkme/TSDFGS/blob/main/LICENSE.md), which is compatible with GPL-3 and GPL (>= 3) code. This is our reading of the public record, not legal advice; see the [license review](criteria-license-review.html).
+
+* **Original software:** TSODBG, GPL (>= 3); compared, not copied.
+* **Article license:** CC BY-NC-ND 4.0.
+* **Verdict:** included.
+
+Reviewed 2026-11-04. [All criteria and the ones left out](criteria-license-review.html).

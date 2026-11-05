@@ -1,43 +1,48 @@
 ---
 title: "Choosing a criterion"
-description: "Which training set criteria exist, which ones TSDFGS has, and what recent comparisons found."
+description: "The training set criteria in TSDFGS, one page each, and what recent comparisons found."
 ---
 
-A training set criterion is a number computed from genotypes alone that predicts how well a model trained on the chosen individuals will predict the others. The search then looks for the training set that optimizes it. This page lists the criteria in the literature, says which are in TSDFGS, and summarizes recent comparisons. The list is not complete; it covers the work we read in full or by abstract (see the references).
+A training set criterion is a number computed from genotypes that predicts how well a model trained on the chosen individuals predicts the others. `optTrain()` searches for the training set that optimizes it. TSDFGS v3 has 17 criteria, each with its own page: definition, original reference, the repository or website of the original authors, and a license review. Run `criteria()` for the same list in R.
 
 ## Targeted and untargeted
 
 * **Targeted**: the individuals to predict (the test set) are genotyped when the training set is chosen. The criterion compares the training set with the test set.
-* **Untargeted**: only the candidate pool is known. The candidates left out of the training set act as the test set.
+* **Untargeted**: only the candidate pool is known. For the criteria of v2 and for PEVmax, G-optimality, and Avg_GRM_MinMax, the candidates left out of the training set act as the test set. MSPE, Avg_GRM, CDmean, and CDmean(v2) use all candidates as the target.
+* **Set-only criteria** (A-, D-, E-optimality, GVoverall, GVaverage, Avg_GRM_self) use the training set alone and ignore a test set.
 
-In a benchmark on seven data sets of six species, targeted optimization beat untargeted optimization, with the largest gap at low heritability (Fernández-González et al., 2023). Akdemir et al. (2019) reached the same conclusion.
+In a benchmark on seven data sets of six species, targeted optimization beat untargeted optimization, with the largest gap at low heritability (Fernández-González et al., 2023). Akdemir and Isidro-Sánchez (2019) reached the same conclusion.
 
 ## Criteria in TSDFGS
 
-| Criterion | Idea | Direction | Function |
-|---|---|---|---|
-| **r-score** | Closed form of the Pearson correlation between predicted and observed values in the test set, for ridge regression (Ou & Liao, 2019) | larger | `r_score()` |
-| **CD** | Coefficient of determination of the predictions, in the PC ridge form (Laloë et al., 1996) | larger | `cd_score()` |
-| **PEV** | Prediction error variance (Akdemir et al., 2015) | smaller | `pev_score()` |
+| Criterion | Type | Direction | Test set | `method` |
+|---|---|---|---|---|
+| [r-score](criterion-rscore.html) | Model-based | larger is better | yes | `rScore` |
+| [PEVmean (ridge, PCs)](criterion-pev.html) | Model-based | smaller is better | yes | `PEV` |
+| [CD (ridge, PCs)](criterion-cd.html) | Model-based | larger is better | yes | `CD` |
+| [A-optimality](criterion-aopt.html) | Optimal design | smaller is better | no | `AOpt` |
+| [D-optimality](criterion-dopt.html) | Optimal design | larger is better | no | `DOpt` |
+| [E-optimality](criterion-eopt.html) | Optimal design | smaller is better | no | `EOpt` |
+| [CDmax (ridge, PCs)](criterion-cdmax.html) | Model-based | larger is better | yes | `CDmax` |
+| [PEVmax](criterion-pevmax.html) | Model-based | smaller is better | yes | `PEVmax` |
+| [G-optimality (GOPTPEV)](criterion-gopt.html) | Optimal design | smaller is better | yes | `GOpt` |
+| [MSPE of ridge regression](criterion-mspe.html) | Model-based | smaller is better | yes | `MSPE` |
+| [GVoverall](criterion-gvoverall.html) | Genomic variation | larger is better | no | `GVoverall` |
+| [GVaverage](criterion-gvaverage.html) | Genomic variation | larger is better | no | `GVaverage` |
+| [Avg_GRM](criterion-avggrm.html) | Relationship | larger is better | yes | `AvgGRM` |
+| [Avg_GRM_self](criterion-avggrmself.html) | Relationship | smaller is better | no | `AvgGRMself` |
+| [Avg_GRM_MinMax](criterion-avggrmminmax.html) | Relationship | larger is better | yes | `AvgGRMminmax` |
+| [CDmean](criterion-cdmean.html) | Model-based | larger is better | yes | `CDmean` |
+| [CDmean(v2)](criterion-cdmean2.html) | Model-based | larger is better | yes | `CDmeanV2` |
+| [Partitioning around medoids (PAM)](criterion-pam.html) | Clustering | smaller is better | yes | `PAM` |
 
-`optTrain(method = )` takes `"rScore"`, `"CD"`, or `"PEV"`.
+Left out for license or scope reasons: see the [license review](criteria-license-review.html).
 
-The CD and PEV of TSDFGS are computed on the PCs with a ridge penalty. They are not the mixed-model CDmean and PEVmean of Rincent et al. (2012), which use a relationship matrix and a variance ratio; the packages STPGA and TrainSel implement those.
+### What is tested
 
-## Other criteria in the literature
+Only three criteria are tested carefully: the r-score, PEVmean, and CD, the criteria of v2.4.2. For all 12 routes of `optTrain()` (with or without sub-populations, with or without a test set), the training sets, scores, and score histories equal the output recorded from v2.4.2.
 
-These are not in TSDFGS v3.0-alpha.
-
-| Criterion | Idea | Source |
-|---|---|---|
-| CDmean, PEVmean | Mean reliability (CD) or prediction error variance of the contrasts between each candidate and the population mean, from a relationship-matrix mixed model | Rincent et al. (2012); Akdemir et al. (2015) |
-| Stratified CDmean | CDmean within sub-populations | Isidro et al. (2015) |
-| Uniform coverage | Sample the genetic (PC) space uniformly, optionally within strata | Bustos-Korts et al. (2016) |
-| Minimum average relationship | Choose a training set with the lowest mean relationship among its members (the best untargeted criterion in a seven-data-set benchmark) | Fernández-González et al. (2023) |
-| CDmean(v2), MSPE-ridge, and genomic-variation rankings | Criteria aimed at finding the top genotypes, not at the mean accuracy; CDmean(v2) equals CDmean but is cheaper to compute | Chen et al. (2024) |
-| Multi-environment and multi-trait criteria | CD or PEV on genotype-by-environment (-by-trait) kernels | Gevartosky et al. (2021); Liu & Liao (2026) |
-| Diversity and core-set metrics | Distances between accessions, allelic richness | De Beukelaer et al. (2018) |
-| Clustering and graph rules | PAM, FURS, MaxCD | Rio et al. (2021); Tibbs-Cortes et al. (2022) |
+The other 15 criteria are provided as they are described in their papers, and the code runs without errors on all routes, but we have not checked them carefully. Several were compared with other implementations (the [license review](criteria-license-review.html) lists which), and each has a small test against a direct formula. This is not a validation. We recommend that you evaluate these criteria yourself on your own data before you rely on them, for example by scoring training sets you know with the matching `*_score()` function. A test also does not show that a criterion picks the best training set for your trait; the papers on each criterion page discuss that.
 
 ## What the comparisons found
 
@@ -45,13 +50,6 @@ These are not in TSDFGS v3.0-alpha.
 * CDmean and PEVmean beat clustering under strong population structure in oat (Rio et al., 2021), yet PEVmean was the weakest in a multi-parental wheat population (Zhang et al., 2021). No criterion wins everywhere.
 * The goal matters. Criteria that maximize the mean accuracy are not the best for picking the top genotypes (Chen et al., 2024).
 * We found no peer-reviewed deep-learning or active-learning method for choosing training individuals in genomic prediction. A recent review names it as a future direction (Alemu et al., 2024).
-
-## A practical rule
-
-1. Use a targeted search whenever the test set is genotyped.
-2. Compare at least two criteria on your own data against random sets of the same size, as in [Getting started](getting-started.html).
-3. Check the convergence of the search.
-4. Use the training set size from `SSDFGS()` as the starting point, and expect to need more individuals for an untargeted design.
 
 ## References
 

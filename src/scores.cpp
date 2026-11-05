@@ -8,15 +8,16 @@
 #include "scores.h"
 
 #include <cmath>
+#include <limits>
 
 namespace tsdfgs {
 namespace {
 
 float AsFloat(double x) { return static_cast<float>(x); }
 
-double RScore(const Mat& x, const Mat* x0, Index n0, const TestCache* cache, bool legacy) {
+double RScore(const Mat& x, const Mat* x0, Index n0, const TestCache* cache, double lam, bool legacy) {
   const Index n = x.rows(), p = x.cols();
-  const double lambda = 1.0 / static_cast<double>(p);
+  const double lambda = lam > 0 ? lam : 1.0 / static_cast<double>(p);
   const double c = 1.0 - 1.0 / static_cast<double>(n0);
   double q1, q2, q12;
   if (p <= n) {
@@ -60,9 +61,9 @@ Mat WithIntercept(const Mat& x) {
   return out;
 }
 
-double PevScore(const Mat& xm, const Mat* x0m, const TestCache* cache, bool legacy) {
+double PevScore(const Mat& xm, const Mat* x0m, const TestCache* cache, double lam, bool legacy) {
   const Index p = xm.cols();
-  const double lambda = 1.0 / static_cast<double>(p);
+  const double lambda = lam > 0 ? lam : 1.0 / static_cast<double>(p);
   const Mat x = WithIntercept(xm);
   double value;
   if (p + 1 <= x.rows()) {
@@ -86,18 +87,19 @@ double PevScore(const Mat& xm, const Mat* x0m, const TestCache* cache, bool lega
   return legacy ? static_cast<double>(AsFloat(value)) : value;
 }
 
-double CdScore(const Mat& x, const Mat& x0, bool legacy) {
+double CdScore(const Mat& x, const Mat& x0, double lam, bool legacy) {
+  const double lambda = lam > 0 ? lam : 1.0;
   const Index n = x.rows(), p = x.cols();
   Eigen::ArrayXd num;
   if (p <= n) {
     const Mat gx = CrossProd(x);
-    const SpdSolver solver(gx, 1.0);
+    const SpdSolver solver(gx, lambda);
     const Mat q = solver.Solve(solver.Solve(gx));  // B X'X B
     num = ((x0 * q).cwiseProduct(x0)).rowwise().sum().array();
   } else {
     const Mat gm = x * x.transpose();
     const Mat z = x0 * x.transpose();
-    const SpdSolver solver(gm, 1.0);
+    const SpdSolver solver(gm, lambda);
     const Mat zk = solver.Solve(z.transpose()).transpose();
     num = zk.cwiseProduct(zk).rowwise().sum().array();
   }
@@ -106,31 +108,100 @@ double CdScore(const Mat& x, const Mat& x0, bool legacy) {
   return legacy ? static_cast<double>(AsFloat(value)) : value;
 }
 
+
 }  // namespace
 
 TestCache MakeTestCache(Criterion crit, const Mat& x0) {
   TestCache cache;
   if (crit == kRScore) cache.g0 = CrossProd(x0);
-  if (crit == kPev) cache.g0 = CrossProd(WithIntercept(x0));
+  if (crit == kPev || crit == kGOpt) cache.g0 = CrossProd(WithIntercept(x0));
+  if (crit == kMspe) cache.g0 = CrossProd(x0);
   return cache;
 }
 
 TestCache MakeCandidateCache(Criterion crit, const Mat& candidates) {
   TestCache cache;
   if (crit == kRScore) cache.total = CrossProd(candidates);
-  if (crit == kPev) cache.total = CrossProd(WithIntercept(candidates));
+  if (crit == kPev || crit == kGOpt) cache.total = CrossProd(WithIntercept(candidates));
+  if (crit == kMspe) cache.total = CrossProd(candidates);
   return cache;
+}
+
+bool IsSetOnly(Criterion crit) {
+  return crit == kAOpt || crit == kDOpt || crit == kEOpt || crit == kGvOverall ||
+         crit == kGvAverage || crit == kAvgGrmSelf;
+}
+
+bool TargetIsCandidates(Criterion crit) {
+  return crit == kMspe || crit == kAvgGrm || crit == kCdMean || crit == kCdMeanV2;
 }
 
 bool CanUseComplement(Criterion crit, Index n, Index p) {
   if (crit == kRScore) return p <= n;
-  if (crit == kPev) return p + 1 <= n;
+  if (crit == kPev || crit == kGOpt) return p + 1 <= n;
+  if (crit == kMspe) return p <= n;
   return false;
 }
 
+bool UseDual(Criterion crit, Index n, Index p) {
+  if (crit == kPev) return n <= p;
+  if (crit == kRScore || crit == kCd) return n < p;
+  return false;
+}
+
+double ScoreGramDual(Criterion crit, const Mat& gram, const std::vector<int>& train,
+                     const std::vector<int>& test, double lam, bool legacy) {
+  const Index n = static_cast<Index>(train.size()), n0 = static_cast<Index>(test.size());
+  Mat gm(n, n), z(n0, n);
+  for (Index j = 0; j < n; ++j) {
+    for (Index i = 0; i < n; ++i) gm(i, j) = gram(train[static_cast<size_t>(i)], train[static_cast<size_t>(j)]);
+    for (Index i = 0; i < n0; ++i) z(i, j) = gram(test[static_cast<size_t>(i)], train[static_cast<size_t>(j)]);
+  }
+  double diag_sum = 0.0;
+  Eigen::ArrayXd dg(n0);
+  for (Index i = 0; i < n0; ++i) {
+    dg(i) = gram(test[static_cast<size_t>(i)], test[static_cast<size_t>(i)]);
+    diag_sum += dg(i);
+  }
+  const double lambda = lam;  // already resolved by the caller (default 1/p, or 1 for CD)
+  if (crit == kPev) {
+    gm.array() += 1.0;
+    z.array() += 1.0;
+    const SpdSolver solver(gm, lambda);
+    const Mat zk = solver.Solve(z.transpose()).transpose();
+    const double value = (diag_sum + static_cast<double>(n0) - SumProd(zk, z)) / lambda;
+    return legacy ? static_cast<double>(AsFloat(value)) : value;
+  }
+  const SpdSolver solver(gm, lambda);
+  const Mat zk = solver.Solve(z.transpose()).transpose();
+  if (crit == kCd) {
+    const Eigen::ArrayXd num = zk.cwiseProduct(zk).rowwise().sum().array();
+    const double value = (num / dg).mean();
+    return legacy ? static_cast<double>(AsFloat(value)) : value;
+  }
+  const double c = 1.0 - 1.0 / static_cast<double>(n0);
+  const Mat t = zk * gm;
+  const double q1 = n0 - 1.0 + c * c * diag_sum;
+  const double q2 = c * c * (SumProd(zk, zk) + SumProd(t, zk));
+  const double q12 = c * SumProd(zk, z);
+  if (legacy) {
+    const float f1 = AsFloat(q1), f2 = AsFloat(q2), f12 = AsFloat(q12);
+    const double s = std::sqrt(static_cast<double>(f1 * f2));
+    return static_cast<double>(AsFloat(static_cast<double>(f12) / s));
+  }
+  return q12 / std::sqrt(q1 * q2);
+}
+
 double Score(Criterion crit, const Mat& x, const Mat* x0, Index n0, const TestCache* cache,
-             bool legacy) {
+             double lambda, bool legacy) {
   if (x0 && x.cols() != x0->cols()) throw std::runtime_error("X and X0 must have the same number of columns.");
+  if (crit >= kAOpt) {
+    if (x.rows() < 1 || x.cols() < 1) throw std::runtime_error("X must have at least one row and one column.");
+    if (!IsSetOnly(crit) && !x0 && !(cache && (cache->total.size() > 0 || cache->g0.size() > 0))) {
+      throw std::runtime_error("internal error: the test matrix is missing");
+    }
+    return ScoreV3(crit, x, x0, n0, cache, lambda);
+  }
   if (x.rows() < 1 || n0 < 1 || x.cols() < 1) {
     throw std::runtime_error("X and X0 must have at least one row and one column.");
   }
@@ -139,9 +210,9 @@ double Score(Criterion crit, const Mat& x, const Mat* x0, Index n0, const TestCa
     throw std::runtime_error("internal error: the test matrix is missing");
   }
   switch (crit) {
-    case kRScore: return RScore(x, x0, n0, cache, legacy);
-    case kPev: return PevScore(x, x0, cache, legacy);
-    default: return CdScore(x, *x0, legacy);
+    case kRScore: return RScore(x, x0, n0, cache, lambda, legacy);
+    case kPev: return PevScore(x, x0, cache, lambda, legacy);
+    default: return CdScore(x, *x0, lambda, legacy);
   }
 }
 

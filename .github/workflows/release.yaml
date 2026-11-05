@@ -1,0 +1,36 @@
+# On a v* tag: builds the source package with R CMD build and attaches it to the GitHub release.
+# The tag must equal the version in DESCRIPTION (v3.0.0 for Version: 3.0.0). The file is the one
+# to upload to CRAN, and it installs without GitHub access:
+#   install.packages("https://github.com/oumarkme/TSDFGS/releases/download/v3.0.0/TSDFGS_3.0.0.tar.gz", repos = NULL)
+name: release
+
+on:
+  push:
+    tags: ['v[0-9]*']
+
+permissions:
+  contents: write
+
+jobs:
+  tarball:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Tag and DESCRIPTION version agree
+        run: |
+          v=$(Rscript -e 'cat(read.dcf("DESCRIPTION", "Version")[1, 1])')
+          test "v$v" = "${GITHUB_REF_NAME}" || { echo "tag ${GITHUB_REF_NAME} but DESCRIPTION has $v"; exit 1; }
+
+      - name: Build the source package
+        run: R CMD build --no-manual .
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: TSDFGS_*.tar.gz
+          generate_release_notes: true
