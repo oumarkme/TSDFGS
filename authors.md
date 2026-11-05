@@ -14,7 +14,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/oumarkme/TSDFGS/blob/v3.0.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/oumarkme/TSDFGS/blob/main/DESCRIPTION)
 
 Ou J, Wu P, Liao C (2026). *TSDFGS: Training Set Determination for
 Genomic Selection*. R package version 3.0.0,
