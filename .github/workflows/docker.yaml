@@ -43,7 +43,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Check that the two environment files agree
         run: diff <(tr -d '\r' < environment.yml) <(tr -d '\r' < env/TSDFGS.yml)
