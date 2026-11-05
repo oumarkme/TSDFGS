@@ -592,6 +592,10 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Speed with 50 cores.</strong> We ran 200 independent r-score searches (untargeted, 100 of 404 rice accessions, 50 principal components) on 50 cores, with TSDFGS 1.0, 2.4.2, and 3.0.0. Versions 1.0 and 2.4.2 have no multithreading, so they ran as 50 forked processes (<code><a href="https://rdrr.io/r/parallel/mclapply.html" class="external-link">parallel::mclapply</a></code>). Each violin shows the time of the 200 searches; the white dot is the median. The median search took 5.07 s with version 1.0, 5.01 s with 2.4.2, and 0.29 s with 3.0.0 (17.6 times faster than 1.0). The whole job took 29.1 s, 29.5 s, and 1.9 s with the same forking, and 1.5 s with the OpenMP threads of 3.0.0 (19.6 times faster than 1.0). The spread within a violin comes from the stopping rule, which ends each search after a different number of iterations.</p>
+<div class="float">
+<img src="reference/figures/speed-50-cores.jpeg" alt="Time per search of 200 r-score searches on 50 cores. Medians: 5.07 s (v1.0), 5.01 s (v2.4.2), 0.29 s (v3.0.0)."><div class="figcaption">Time per search of 200 r-score searches on 50 cores. Medians: 5.07 s (v1.0), 5.01 s (v2.4.2), 0.29 s (v3.0.0).</div>
+</div>
 <p><strong>Parallel simulation.</strong> <code><a href="reference/SSDFGS.html">SSDFGS()</a></code>, <code><a href="reference/FGCM.html">FGCM()</a></code>, and <code><a href="reference/nt2r.html">nt2r()</a></code> run their independent searches with OpenMP when you set <code>multi.threads = TRUE</code> or <code>threads = n</code>. On a Linux server limited to 50 threads (100 searches, 404 rice accessions, 50 PCs, wall time):</p>
 <table class="table">
 <thead><tr>

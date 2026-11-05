@@ -209,6 +209,26 @@ Milliseconds per iteration of
 |     404 | PEV, untargeted, n=100       | 27.816 |  0.831 |    33.5x |
 |     404 | r-score, untargeted, n=100   | 17.701 |  1.319 |    13.4x |
 
+**Speed with 50 cores.** We ran 200 independent r-score searches
+(untargeted, 100 of 404 rice accessions, 50 principal components) on 50
+cores, with TSDFGS 1.0, 2.4.2, and 3.0.0. Versions 1.0 and 2.4.2 have no
+multithreading, so they ran as 50 forked processes
+([`parallel::mclapply`](https://rdrr.io/r/parallel/mclapply.html)). Each
+violin shows the time of the 200 searches; the white dot is the median.
+The median search took 5.07 s with version 1.0, 5.01 s with 2.4.2, and
+0.29 s with 3.0.0 (17.6 times faster than 1.0). The whole job took 29.1
+s, 29.5 s, and 1.9 s with the same forking, and 1.5 s with the OpenMP
+threads of 3.0.0 (19.6 times faster than 1.0). The spread within a
+violin comes from the stopping rule, which ends each search after a
+different number of iterations.
+
+![Time per search of 200 r-score searches on 50 cores. Medians: 5.07 s
+(v1.0), 5.01 s (v2.4.2), 0.29 s
+(v3.0.0).](reference/figures/speed-50-cores.jpeg)
+
+Time per search of 200 r-score searches on 50 cores. Medians: 5.07 s
+(v1.0), 5.01 s (v2.4.2), 0.29 s (v3.0.0).
+
 **Parallel simulation.**
 [`SSDFGS()`](https://www.oumark.net/TSDFGS/reference/SSDFGS.md),
 [`FGCM()`](https://www.oumark.net/TSDFGS/reference/FGCM.md), and
