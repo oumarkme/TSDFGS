@@ -1,9 +1,32 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.8.3
+pkgdown: 2.2.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2023-10-05T12:26Z
+articles:
+  articles/criteria-license-review: criteria-license-review.html
+  articles/criteria: criteria.html
+  articles/criterion-aopt: criterion-aopt.html
+  articles/criterion-avggrm: criterion-avggrm.html
+  articles/criterion-avggrmminmax: criterion-avggrmminmax.html
+  articles/criterion-avggrmself: criterion-avggrmself.html
+  articles/criterion-cd: criterion-cd.html
+  articles/criterion-cdmax: criterion-cdmax.html
+  articles/criterion-cdmean: criterion-cdmean.html
+  articles/criterion-cdmean2: criterion-cdmean2.html
+  articles/criterion-dopt: criterion-dopt.html
+  articles/criterion-eopt: criterion-eopt.html
+  articles/criterion-gopt: criterion-gopt.html
+  articles/criterion-gvaverage: criterion-gvaverage.html
+  articles/criterion-gvoverall: criterion-gvoverall.html
+  articles/criterion-mspe: criterion-mspe.html
+  articles/criterion-pam: criterion-pam.html
+  articles/criterion-pev: criterion-pev.html
+  articles/criterion-pevmax: criterion-pevmax.html
+  articles/criterion-rscore: criterion-rscore.html
+  articles/getting-started: getting-started.html
+  articles/installation: installation.html
+  articles/methods: methods.html
+  articles/migrating-from-v2: migrating-from-v2.html
+last_built: 2026-11-05T03:15Z
 urls:
-  reference: https://github.markou.xyz/TSDFGS/reference
-  article: https://github.markou.xyz/TSDFGS/articles
-
+  reference: https://www.oumark.net/TSDFGS/reference
+  article: https://www.oumark.net/TSDFGS/articles

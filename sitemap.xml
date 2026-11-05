@@ -1,48 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/404.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/index.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/FGCM.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/SSDFGS.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/TSDFGS.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/cd_score.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/geno.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/nt2r.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/optTrain.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/pev_score.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/r_score.html</loc>
-  </url>
-  <url>
-    <loc>https://github.markou.xyz/TSDFGS/reference/subpop.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://www.oumark.net/TSDFGS/404.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/LICENSE.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criteria-license-review.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criteria.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-aopt.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-avggrm.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-avggrmminmax.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-avggrmself.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-cd.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-cdmax.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-cdmean.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-cdmean2.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-dopt.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-eopt.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-gopt.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-gvaverage.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-gvoverall.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-mspe.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-pam.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-pev.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-pevmax.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/criterion-rscore.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/getting-started.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/index.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/installation.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/methods.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/articles/migrating-from-v2.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/authors.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/index.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/news/index.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/FGCM.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/SSDFGS.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/TSDFGS-package.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/aopt_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/avg_grm_minmax_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/avg_grm_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/avg_grm_self_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/cd_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/cdmax_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/cdmean2_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/cdmean_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/criteria.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/dopt_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/eopt_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/geno.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/gopt_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/gv_average_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/gv_overall_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/index.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/mspe_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/nt2r.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/optTrain.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/pam_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/pev_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/pevmax_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/r_score.html</loc></url>
+<url><loc>https://www.oumark.net/TSDFGS/reference/subpop.html</loc></url>
 </urlset>
+
